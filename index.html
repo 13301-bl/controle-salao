@@ -47,7 +47,7 @@ label{display:block;font-weight:700;margin:12px 0 6px}input,select{width:100%;pa
 </div>
 <div class="row">
 <div><label>Data da festa</label><input id="partyDate" type="date" min=""></div>
-<div><label>Horário</label><input id="partyTime" type="text" value="19:00 às 23:00"></div>
+<div class="row"><div><label>Horário início</label><input id="partyTimeStart" type="time" value="19:00"></div><div><label>Horário fim</label><input id="partyTimeEnd" type="time" value="23:00"></div></div>
 </div>
 <h3>Convidados</h3>
 <div id="guestInputs"></div>
@@ -114,17 +114,19 @@ function addGuestInput(name='',phone=''){
  document.getElementById('guestInputs').appendChild(d)
 }
 function saveParty(){
- const host=document.getElementById('hostName').value.trim(),block=document.getElementById('block').value.trim(),apt=document.getElementById('apt').value.trim(),date=document.getElementById('partyDate').value,time=document.getElementById('partyTime').value.trim();
+ const host=document.getElementById('hostName').value.trim(),block=document.getElementById('block').value.trim(),apt=document.getElementById('apt').value.trim(),date=document.getElementById('partyDate').value;
+ const timeStart=document.getElementById('partyTimeStart').value,timeEnd=document.getElementById('partyTimeEnd').value;
  const rows=[...document.querySelectorAll('.guest-row')].map(r=>({name:r.querySelector('.guestName').value.trim(),phone:r.querySelector('.guestPhone').value.trim()})).filter(x=>x.name);
- if(!host||!block||!apt||!date||!rows.length){alert('Preencha responsável, bloco, apartamento, data e pelo menos um convidado.');return}
+ if(!host||!block||!apt||!date||!timeStart||!timeEnd||!rows.length){alert('Preencha responsável, bloco, apartamento, data, horário início/fim e pelo menos um convidado.');return}
  if(date<todayISO()){alert('A data da festa não pode estar no passado.');return}
+ const time=`${timeStart} às ${timeEnd}`;
  const oldByName=new Map(data.guests.map(g=>[g.name.toLowerCase(),g]));
  data.party={host,block,apt,date,time};
  data.guests=rows.map(r=>{const old=oldByName.get(r.name.toLowerCase());return old?{...old,name:r.name,phone:r.phone}:{
    id:crypto.randomUUID?crypto.randomUUID():Date.now()+Math.random(),name:r.name,phone:r.phone,code:uid(),entered:false,entryTime:null
  }});
  save();
- document.getElementById('hostName').value='';document.getElementById('block').value='';document.getElementById('apt').value='';document.getElementById('partyDate').value='';document.getElementById('partyTime').value='19:00 às 23:00';
+ document.getElementById('hostName').value='';document.getElementById('block').value='';document.getElementById('apt').value='';document.getElementById('partyDate').value='';document.getElementById('partyTimeStart').value='19:00';document.getElementById('partyTimeEnd').value='23:00';
  document.getElementById('guestInputs').innerHTML='';addGuestInput();
  alert('Lista salva com sucesso!');go('resident')
 }
