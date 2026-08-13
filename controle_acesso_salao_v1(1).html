@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1f4d73">
+<title>Controle de Acesso - Salão de Festas</title>
+<style>
+:root{--primary:#1f4d73;--primary2:#2f6d9f;--bg:#f4f7fa;--card:#fff;--text:#1d2939;--muted:#667085;--line:#dbe3ea;--green:#16834b;--greenbg:#eaf8f0;--red:#c62828;--redbg:#fff0f0;--orange:#b76e00;--orangebg:#fff7e6;--shadow:0 8px 25px rgba(16,24,40,.08)}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
+button,input,select{font:inherit}button{cursor:pointer}
+.app{min-height:100vh}.top{background:var(--primary);color:#fff;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:15px;position:sticky;top:0;z-index:10}.brand{font-size:20px;font-weight:700}.top small{opacity:.85}.container{max-width:1100px;margin:auto;padding:22px}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}.nav button,.btn{border:0;border-radius:10px;padding:11px 15px;font-weight:700}.nav button{background:#fff;color:var(--primary);border:1px solid var(--line)}.nav button.active,.btn.primary{background:var(--primary);color:#fff}.btn.secondary{background:#eef3f7;color:var(--primary)}.btn.danger{background:#ffe9e9;color:var(--red)}.btn.green{background:var(--green);color:#fff}.btn:disabled{opacity:.5;cursor:not-allowed}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:var(--shadow)}.card h2,.card h3{margin-top:0}.role-card{min-height:150px;display:flex;flex-direction:column;justify-content:space-between}.role-card .icon{font-size:34px}
+label{display:block;font-weight:700;margin:12px 0 6px}input,select{width:100%;padding:12px;border:1px solid #cbd5df;border-radius:9px;background:#fff;outline:none}input:focus,select:focus{border-color:var(--primary2);box-shadow:0 0 0 3px #dcecf8}.row{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.row3{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px}.guest-row{display:grid;grid-template-columns:1fr 1fr 44px;gap:8px;margin-bottom:8px;align-items:center}.table{width:100%;border-collapse:collapse}.table th,.table td{padding:11px 8px;border-bottom:1px solid var(--line);text-align:left;font-size:14px}.table th{color:var(--muted)}.pill{display:inline-block;padding:5px 9px;border-radius:99px;font-size:12px;font-weight:700}.pill.green{background:var(--greenbg);color:var(--green)}.pill.red{background:var(--redbg);color:var(--red)}.pill.orange{background:var(--orangebg);color:var(--orange)}
+.hidden{display:none!important}.muted{color:var(--muted)}.notice{padding:13px;border-radius:10px;background:#eef5fb;color:#285678;margin:12px 0}.result{text-align:center;border-radius:16px;padding:22px;margin-top:16px}.result.ok{background:var(--greenbg);color:var(--green)}.result.no{background:var(--redbg);color:var(--red)}.result.warn{background:var(--orangebg);color:var(--orange)}.result .big{font-size:30px;font-weight:800;margin:8px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:15px}.stat b{font-size:25px;display:block}.empty{text-align:center;padding:30px;color:var(--muted)}.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;padding:20px;z-index:30}.modal-box{background:#fff;border-radius:16px;max-width:520px;width:100%;padding:22px;max-height:90vh;overflow:auto}.qr{width:180px;height:180px;margin:15px auto;display:block;border:10px solid #fff;box-shadow:0 2px 12px #bbb}.footer{padding:30px;text-align:center;color:var(--muted);font-size:12px}.lock{max-width:430px;margin:30px auto;text-align:center}.lock .icon{font-size:42px}.error{color:var(--red);font-weight:700;margin-top:10px}
+@media(max-width:700px){.container{padding:14px}.row,.row3{grid-template-columns:1fr}.guest-row{grid-template-columns:1fr 90px 40px}.stats{grid-template-columns:repeat(2,1fr)}.top{padding:14px}.table{display:block;overflow-x:auto}.nav{display:grid;grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top"><div><div class="brand">🏢 Controle de Acesso</div><small>Salão de Festas do Condomínio</small></div><button class="btn secondary" onclick="go('home')">Início</button></header>
+<main class="container">
+<div class="nav" id="nav">
+<button onclick="go('resident')">👤 Morador</button>
+<button onclick="openProtected('gate')">🛡️ Portaria</button>
+<button onclick="openProtected('admin')">⚙️ Administração</button>
+</div>
+
+<section id="home" class="view">
+<div class="card"><h2>Primeira versão</h2><p class="muted">Cadastre convidados, gere convites com QR Code e registre a entrada na portaria.</p></div>
+<div class="grid" style="margin-top:16px">
+<div class="card role-card"><div><div class="icon">👤</div><h3>Área do Morador</h3><p class="muted">Cadastre e gerencie os convidados da sua festa.</p></div><button class="btn primary" onclick="go('resident')">Acessar</button></div>
+<div class="card role-card"><div><div class="icon">🛡️</div><h3>Portaria</h3><p class="muted">Valide QR Code/código e registre as entradas.</p></div><button class="btn primary" onclick="openProtected('gate')">Acessar</button></div>
+<div class="card role-card"><div><div class="icon">⚙️</div><h3>Administração</h3><p class="muted">Acompanhe festas, convidados e histórico de acessos.</p></div><button class="btn primary" onclick="openProtected('admin')">Acessar</button></div>
+</div>
+</section>
+
+<section id="resident" class="view hidden">
+<div class="card">
+<h2>👤 Cadastro de convidados</h2>
+<div class="row">
+<div><label>Nome do responsável</label><input id="hostName" placeholder="Ex.: João Silva"></div>
+<div><label>Bloco</label><input id="block" placeholder="Ex.: A"></div>
+<div><label>Apartamento</label><input id="apt" placeholder="Ex.: 205"></div>
+</div>
+<div class="row">
+<div><label>Data da festa</label><input id="partyDate" type="date"></div>
+<div><label>Horário</label><input id="partyTime" type="text" value="19:00 às 23:00"></div>
+</div>
+<div class="notice">Nesta versão, os dados ficam salvos neste navegador. Para uso real por vários celulares, a próxima etapa é conectar um banco de dados.</div>
+<h3>Convidados</h3>
+<div id="guestInputs"></div>
+<button class="btn secondary" onclick="addGuestInput()">+ Adicionar convidado</button>
+<hr style="border:0;border-top:1px solid var(--line);margin:20px 0">
+<button class="btn primary" onclick="saveParty()">Finalizar / Salvar lista</button>
+<button class="btn secondary" onclick="loadSample()">Carregar exemplo</button>
+</div>
+<div class="card" style="margin-top:16px"><h3>Lista atual</h3><div id="residentList"></div></div>
+</section>
+
+<section id="gate" class="view hidden"><div class="notice">Área protegida por senha. A senha padrão desta versão é <b>1234</b>. Altere no código antes de usar em produção.</div>
+<div class="card">
+<h2>🛡️ Portaria</h2>
+<p class="muted">Digite o código do convite ou o nome do convidado.</p>
+<div class="row">
+<div><label>Código</label><input id="gateCode" placeholder="Ex.: A8F42K" onkeydown="if(event.key==='Enter')validateGate()"></div>
+<div><label>Nome</label><input id="gateName" placeholder="Ex.: Carlos Silva" onkeydown="if(event.key==='Enter')validateGate()"></div>
+</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px"><button class="btn primary" onclick="validateGate()">🔎 Consultar</button><button class="btn secondary" onclick="clearGate()">Limpar</button></div>
+<div id="gateResult"></div>
+</div>
+<div class="card" style="margin-top:16px"><h3>Últimas entradas</h3><div id="gateHistory"></div></div>
+</section>
+
+<section id="admin" class="view hidden"><div class="notice">Área protegida por senha. A senha padrão desta versão é <b>1234</b>. Altere no código antes de usar em produção.</div>
+<div class="card"><h2>⚙️ Administração</h2><div id="adminSummary"></div></div>
+<div class="card" style="margin-top:16px"><h3>Convidados</h3><div id="adminGuests"></div></div>
+</section>
+</main>
+<div class="footer">Protótipo local • Controle de acesso do salão de festas</div>
+</div>
+
+<div id="lockModal" class="modal hidden"><div class="modal-box lock"><div class="icon">🔐</div><h2 id="lockTitle">Área protegida</h2><p class="muted">Digite a senha para continuar.</p><input id="lockPassword" type="password" placeholder="Senha" onkeydown="if(event.key==='Enter')unlock()"><div id="lockError" class="error"></div><button class="btn primary" style="margin-top:12px;width:100%" onclick="unlock()">Entrar</button><button class="btn secondary" style="margin-top:8px;width:100%" onclick="closeLock()">Cancelar</button></div></div><div id="modal" class="modal hidden"><div class="modal-box"><div id="modalContent"></div><div style="text-align:right;margin-top:15px"><button class="btn secondary" onclick="closeModal()">Fechar</button></div></div></div>
+
+<script>
+const KEY='condominio_salao_v1';
+let data=JSON.parse(localStorage.getItem(KEY)||'null')||{party:null,guests:[],history:[]};
+
+function save(){localStorage.setItem(KEY,JSON.stringify(data));renderAll()}
+function go(id){document.querySelectorAll('.view').forEach(v=>v.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');renderAll();window.scrollTo({top:0,behavior:'smooth'})}
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function uid(){return Math.random().toString(36).slice(2,8).toUpperCase()}
+function addGuestInput(name='',phone=''){
+ let d=document.createElement('div');d.className='guest-row';
+ d.style.gridTemplateColumns='1fr 1fr 44px';
+ d.innerHTML=`<input class="guestName" placeholder="Nome completo" value="${esc(name)}"><input class="guestPhone" placeholder="Telefone (opcional)" value="${esc(phone)}"><button class="btn danger" onclick="this.parentElement.remove()">×</button>`;
+ document.getElementById('guestInputs').appendChild(d)
+}
+function loadSample(){document.getElementById('hostName').value='João Silva';document.getElementById('block').value='A';document.getElementById('apt').value='205';document.getElementById('partyDate').value=new Date().toISOString().slice(0,10);document.getElementById('partyTime').value='19:00 às 23:00';document.getElementById('guestInputs').innerHTML='';[['Carlos Silva','61999990000'],['Maria Souza',''],['Pedro Oliveira','61988887777'],['Ana Costa','']].forEach(x=>addGuestInput(x[0],x[1]))}
+function saveParty(){
+ const host=document.getElementById('hostName').value.trim(),block=document.getElementById('block').value.trim(),apt=document.getElementById('apt').value.trim(),date=document.getElementById('partyDate').value,time=document.getElementById('partyTime').value.trim();
+ const rows=[...document.querySelectorAll('.guest-row')].map(r=>({name:r.querySelector('.guestName').value.trim(),phone:r.querySelector('.guestPhone').value.trim()})).filter(x=>x.name);
+ if(!host||!block||!apt||!date||!rows.length){alert('Preencha responsável, bloco, apartamento, data e pelo menos um convidado.');return}
+ const oldByName=new Map(data.guests.map(g=>[g.name.toLowerCase(),g]));
+ data.party={host,block,apt,date,time};
+ data.guests=rows.map(r=>{const old=oldByName.get(r.name.toLowerCase());return old?{...old,name:r.name,phone:r.phone}:{
+   id:crypto.randomUUID?crypto.randomUUID():Date.now()+Math.random(),name:r.name,phone:r.phone,code:uid(),entered:false,entryTime:null
+ }});
+ save();alert('Lista salva com sucesso!');go('resident')
+}
+function formatDate(d){if(!d)return '-';let [y,m,day]=d.split('-');return `${day}/${m}/${y}`}
+function renderResident(){
+ const p=data.party,el=document.getElementById('residentList');
+ if(!p){el.innerHTML='<div class="empty">Nenhuma lista cadastrada.</div>';return}
+ document.getElementById('hostName').value=p.host;document.getElementById('block').value=p.block||'';document.getElementById('apt').value=p.apt;document.getElementById('partyDate').value=p.date;document.getElementById('partyTime').value=p.time;
+ el.innerHTML=`<p><b>${esc(p.host)}</b> • Bloco ${esc(p.block||'-')} • Apto ${esc(p.apt)} • ${formatDate(p.date)} • ${esc(p.time)}</p><table class="table"><thead><tr><th>Convidado</th><th>Telefone</th><th>Código</th><th>Status</th><th></th></tr></thead><tbody>${data.guests.map(g=>`<tr><td>${esc(g.name)}</td><td>${esc(g.phone||'-')}</td><td><b>${g.code}</b></td><td>${g.entered?'<span class="pill green">Entrou</span>':'<span class="pill orange">Aguardando</span>'}</td><td><button class="btn secondary" onclick="showInvite('${g.id}')">Convite</button></td></tr>`).join('')}</tbody></table>`
+}
+function validateGate(){
+ const code=document.getElementById('gateCode').value.trim().toUpperCase(),name=document.getElementById('gateName').value.trim().toLowerCase();
+ let g=data.guests.find(x=>(code&&x.code===code)||(name&&x.name.toLowerCase()===name));
+ const el=document.getElementById('gateResult');
+ if(!g){el.innerHTML='<div class="result no"><div class="big">🔴 NÃO AUTORIZADO</div><p>Convidado não encontrado na lista desta festa.</p></div>';return}
+ if(g.entered){el.innerHTML=`<div class="result warn"><div class="big">⚠️ CONVITE JÁ UTILIZADO</div><p><b>${esc(g.name)}</b><br>Entrada registrada às ${esc(g.entryTime)}.</p></div>`;return}
+ el.innerHTML=`<div class="result ok"><div class="big">🟢 ENTRADA AUTORIZADA</div><p><b>${esc(g.name)}</b><br>Apto ${esc(data.party?.apt||'-')} • Festa de ${esc(data.party?.host||'-')}</p><button class="btn green" onclick="confirmEntry('${g.id}')">✓ CONFIRMAR ENTRADA</button></div>`
+}
+function confirmEntry(id){let g=data.guests.find(x=>x.id==id);if(!g)return;g.entered=true;g.entryTime=new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});data.history.unshift({name:g.name,code:g.code,time:g.entryTime,date:new Date().toLocaleDateString('pt-BR')});save();document.getElementById('gateCode').value='';document.getElementById('gateName').value='';document.getElementById('gateResult').innerHTML='<div class="result ok"><div class="big">✓ ENTRADA REGISTRADA</div><p>O acesso foi registrado com sucesso.</p></div>'}
+function clearGate(){document.getElementById('gateCode').value='';document.getElementById('gateName').value='';document.getElementById('gateResult').innerHTML=''}
+function renderGateHistory(){let e=document.getElementById('gateHistory');e.innerHTML=data.history.length?`<table class="table"><thead><tr><th>Horário</th><th>Convidado</th><th>Código</th></tr></thead><tbody>${data.history.slice(0,20).map(x=>`<tr><td>${x.time}</td><td>${esc(x.name)}</td><td>${x.code}</td></tr>`).join('')}</tbody></table>`:'<div class="empty">Nenhuma entrada registrada.</div>'}
+function renderAdmin(){
+ let total=data.guests.length,entered=data.guests.filter(g=>g.entered).length;
+ document.getElementById('adminSummary').innerHTML=data.party?`<p><b>${esc(data.party.host)}</b> • Bloco ${esc(data.party.block||'-')} • Apto ${esc(data.party.apt)} • ${formatDate(data.party.date)} • ${esc(data.party.time)}</p><div class="stats"><div class="stat"><span>Convidados</span><b>${total}</b></div><div class="stat"><span>Entraram</span><b>${entered}</b></div><div class="stat"><span>Aguardando</span><b>${total-entered}</b></div></div>`:'<div class="empty">Nenhuma festa cadastrada.</div>';
+ document.getElementById('adminGuests').innerHTML=total?`<table class="table"><thead><tr><th>Convidado</th><th>Telefone</th><th>Código</th><th>Status</th><th>Horário</th></tr></thead><tbody>${data.guests.map(g=>`<tr><td>${esc(g.name)}</td><td>${esc(g.phone||'-')}</td><td>${g.code}</td><td>${g.entered?'<span class="pill green">Entrou</span>':'<span class="pill orange">Aguardando</span>'}</td><td>${g.entryTime||'-'}</td></tr>`).join('')}</tbody></table>`:'<div class="empty">Nenhum convidado.</div>'
+}
+function showInvite(id){let g=data.guests.find(x=>x.id==id);if(!g)return;let payload=encodeURIComponent(JSON.stringify({code:g.code,name:g.name,party:data.party?.host||'',apt:data.party?.apt||''}));document.getElementById('modalContent').innerHTML=`<h2 style="text-align:center">🎉 Convite</h2><p style="text-align:center"><b>${esc(g.name)}</b><br>Festa de ${esc(data.party?.host||'')}<br>Bloco ${esc(data.party?.block||'-')} • Apto ${esc(data.party?.apt||'')}<br>${g.phone?`Telefone: ${esc(g.phone)}`:''}</p><img class="qr" alt="QR Code" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${payload}"><p style="text-align:center">Código: <b style="font-size:22px">${g.code}</b></p><p class="muted" style="text-align:center">Apresente este QR Code ou informe o código na portaria.</p>`;document.getElementById('modal').classList.remove('hidden')}
+function closeModal(){document.getElementById('modal').classList.add('hidden')}
+let protectedTarget=null;
+const passwords={gate:'1234',admin:'1234'};
+
+function openProtected(target){
+ protectedTarget=target;
+ document.getElementById('lockTitle').textContent=target==='gate'?'🔐 Acesso à Portaria':'🔐 Acesso à Administração';
+ document.getElementById('lockPassword').value='';
+ document.getElementById('lockError').textContent='';
+ document.getElementById('lockModal').classList.remove('hidden');
+ setTimeout(()=>document.getElementById('lockPassword').focus(),100);
+}
+function unlock(){
+ const pass=document.getElementById('lockPassword').value;
+ if(pass===passwords[protectedTarget]){
+   const target=protectedTarget;closeLock();go(target);
+ }else document.getElementById('lockError').textContent='Senha incorreta.';
+}
+function closeLock(){document.getElementById('lockModal').classList.add('hidden');protectedTarget=null}
+
+function renderAll(){renderResident();renderGateHistory();renderAdmin()}
+document.addEventListener('DOMContentLoaded',()=>{if(!document.getElementById('guestInputs').children.length)addGuestInput();renderAll()})
+</script>
+</body>
+</html>
