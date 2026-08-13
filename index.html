@@ -46,7 +46,7 @@ label{display:block;font-weight:700;margin:12px 0 6px}input,select{width:100%;pa
 <div><label>Apartamento</label><input id="apt" placeholder="Ex.: 205"></div>
 </div>
 <div class="row">
-<div><label>Data da festa</label><input id="partyDate" type="date"></div>
+<div><label>Data da festa</label><input id="partyDate" type="date" min=""></div>
 <div><label>Horário</label><input id="partyTime" type="text" value="19:00 às 23:00"></div>
 </div>
 <h3>Convidados</h3>
@@ -86,6 +86,23 @@ label{display:block;font-weight:700;margin:12px 0 6px}input,select{width:100%;pa
 const KEY='condominio_salao_v1';
 let data=JSON.parse(localStorage.getItem(KEY)||'null')||{party:null,guests:[],history:[]};
 
+function todayISO(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
+function partyEndDate(party){
+ if(!party||!party.date)return null;
+ const[y,m,d]=party.date.split('-').map(Number);
+ const matches=[...(party.time||'').matchAll(/(\d{1,2}):(\d{2})/g)];
+ const last=matches.length?matches[matches.length-1]:null;
+ const hh=last?parseInt(last[1],10):23,mm=last?parseInt(last[2],10):59;
+ return new Date(y,m-1,d,hh,mm,0);
+}
+function checkPartyExpiry(){
+ if(!data.party)return;
+ const end=partyEndDate(data.party);
+ if(end&&new Date()>end){
+  data={party:null,guests:[],history:[]};
+  save();
+ }
+}
 function save(){localStorage.setItem(KEY,JSON.stringify(data));renderAll()}
 function go(id){document.querySelectorAll('.view').forEach(v=>v.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');renderAll();window.scrollTo({top:0,behavior:'smooth'})}
 function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
@@ -100,6 +117,7 @@ function saveParty(){
  const host=document.getElementById('hostName').value.trim(),block=document.getElementById('block').value.trim(),apt=document.getElementById('apt').value.trim(),date=document.getElementById('partyDate').value,time=document.getElementById('partyTime').value.trim();
  const rows=[...document.querySelectorAll('.guest-row')].map(r=>({name:r.querySelector('.guestName').value.trim(),phone:r.querySelector('.guestPhone').value.trim()})).filter(x=>x.name);
  if(!host||!block||!apt||!date||!rows.length){alert('Preencha responsável, bloco, apartamento, data e pelo menos um convidado.');return}
+ if(date<todayISO()){alert('A data da festa não pode estar no passado.');return}
  const oldByName=new Map(data.guests.map(g=>[g.name.toLowerCase(),g]));
  data.party={host,block,apt,date,time};
  data.guests=rows.map(r=>{const old=oldByName.get(r.name.toLowerCase());return old?{...old,name:r.name,phone:r.phone}:{
@@ -196,7 +214,13 @@ function submitPasswordChange(){
 }
 
 function renderAll(){renderResident();renderGateHistory();renderAdmin()}
-document.addEventListener('DOMContentLoaded',()=>{if(!document.getElementById('guestInputs').children.length)addGuestInput();renderAll()})
+document.addEventListener('DOMContentLoaded',()=>{
+ document.getElementById('partyDate').min=todayISO();
+ checkPartyExpiry();
+ if(!document.getElementById('guestInputs').children.length)addGuestInput();
+ renderAll();
+})
+setInterval(checkPartyExpiry,60000)
 </script>
 </body>
 </html>
