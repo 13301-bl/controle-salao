@@ -13,12 +13,14 @@ button,input,select{font:inherit}button{cursor:pointer}
 .app{min-height:100vh}.top{background:var(--primary);color:#fff;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:15px;position:sticky;top:0;z-index:10}.brand{font-size:20px;font-weight:700}.top small{opacity:.85}.container{max-width:1100px;margin:auto;padding:22px}
 .nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}.nav button,.btn{border:0;border-radius:10px;padding:11px 15px;font-weight:700}.nav button{background:#fff;color:var(--primary);border:1px solid var(--line)}.nav button.active,.btn.primary{background:var(--primary);color:#fff}.btn.secondary{background:#eef3f7;color:var(--primary)}.btn.danger{background:#ffe9e9;color:var(--red)}.btn.green{background:var(--green);color:#fff}.btn:disabled{opacity:.5;cursor:not-allowed}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:var(--shadow)}.card h2,.card h3{margin-top:0}.role-card{min-height:150px;display:flex;flex-direction:column;justify-content:space-between}.role-card .icon{font-size:34px}
-label{display:block;font-weight:700;margin:12px 0 6px}input,select{width:100%;padding:12px;border:1px solid #cbd5df;border-radius:9px;background:#fff;outline:none}input:focus,select:focus{border-color:var(--primary2);box-shadow:0 0 0 3px #dcecf8}.row{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.row3{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px}.guest-row{display:grid;grid-template-columns:1fr 1fr 44px;gap:8px;margin-bottom:8px;align-items:center}.table{width:100%;border-collapse:collapse}.table th,.table td{padding:11px 8px;border-bottom:1px solid var(--line);text-align:left;font-size:14px}.table th{color:var(--muted)}.pill{display:inline-block;padding:5px 9px;border-radius:99px;font-size:12px;font-weight:700}.pill.green{background:var(--greenbg);color:var(--green)}.pill.red{background:var(--redbg);color:var(--red)}.pill.orange{background:var(--orangebg);color:var(--orange)}
+label{display:block;font-weight:700;margin:12px 0 6px}input,select{width:100%;padding:12px;border:1px solid #cbd5df;border-radius:9px;background:#fff;outline:none}input:focus,select:focus{border-color:var(--primary2);box-shadow:0 0 0 3px #dcecf8}input:disabled,select:disabled{background:#f1f4f7;color:var(--muted)}.row{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.row3{display:grid;grid-template-columns:2fr 1fr 1fr;gap:12px}.guest-row{display:grid;grid-template-columns:1fr 1fr 44px;gap:8px;margin-bottom:8px;align-items:center}.table{width:100%;border-collapse:collapse}.table th,.table td{padding:11px 8px;border-bottom:1px solid var(--line);text-align:left;font-size:14px}.table th{color:var(--muted)}.pill{display:inline-block;padding:5px 9px;border-radius:99px;font-size:12px;font-weight:700}.pill.green{background:var(--greenbg);color:var(--green)}.pill.red{background:var(--redbg);color:var(--red)}.pill.orange{background:var(--orangebg);color:var(--orange)}
 .hidden{display:none!important}.muted{color:var(--muted)}.notice{padding:13px;border-radius:10px;background:#eef5fb;color:#285678;margin:12px 0}.result{text-align:center;border-radius:16px;padding:22px;margin-top:16px}.result.ok{background:var(--greenbg);color:var(--green)}.result.no{background:var(--redbg);color:var(--red)}.result.warn{background:var(--orangebg);color:var(--orange)}.result .big{font-size:30px;font-weight:800;margin:8px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:15px}.stat b{font-size:25px;display:block}.empty{text-align:center;padding:30px;color:var(--muted)}.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;padding:20px;z-index:30}.modal-box{background:#fff;border-radius:16px;max-width:520px;width:100%;padding:22px;max-height:90vh;overflow:auto}.qr{width:180px;height:180px;margin:15px auto;display:block;border:10px solid #fff;box-shadow:0 2px 12px #bbb}.footer{padding:30px;text-align:center;color:var(--muted);font-size:12px}.lock{max-width:430px;margin:30px auto;text-align:center}.lock .icon{font-size:42px}.error{color:var(--red);font-weight:700;margin-top:10px}
 .btn.whatsapp{background:#e9faf1;color:#128c4c;display:inline-flex;align-items:center;gap:8px}.btn.whatsapp:hover{background:#d7f5e4}.card-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
 #qr-reader{border-radius:12px;overflow:hidden}
-@media print{.top,.nav,.footer,.notice,.card-head button,section .btn,#gate .card:first-of-type{display:none!important}.card{box-shadow:none;border:1px solid #999}}
-@media(max-width:700px){.container{padding:14px}.row,.row3{grid-template-columns:1fr}.guest-row{grid-template-columns:1fr 90px 40px}.stats{grid-template-columns:repeat(2,1fr)}.top{padding:14px}.table{display:block;overflow-x:auto}.nav{display:grid;grid-template-columns:1fr 1fr}}
+.party-card{border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px;background:#fbfdff}
+ul.rules{padding-left:20px;margin:8px 0}ul.rules li{margin-bottom:8px;line-height:1.5}
+@media print{.top,.nav,.footer,.notice,.card-head button,section .btn{display:none!important}.card{box-shadow:none;border:1px solid #999}body.print-only-mode .card:not(.print-target){display:none!important}}
+@media(max-width:700px){.container{padding:14px}.row,.row3{grid-template-columns:1fr}.guest-row{grid-template-columns:1fr 90px 40px}.stats{grid-template-columns:repeat(2,1fr)}.top{padding:14px}.table{display:block;overflow-x:auto}.nav{display:grid;grid-template-columns:1fr 1fr 1fr}}
 </style>
 </head>
 <body>
@@ -26,39 +28,57 @@ label{display:block;font-weight:700;margin:12px 0 6px}input,select{width:100%;pa
 <header class="top"><div><div class="brand">🏢 Controle de Acesso</div><small>Salão de Festas do Condomínio</small></div><button class="btn secondary" onclick="go('home')">Início</button></header>
 <main class="container">
 <div class="nav" id="nav">
-<button onclick="go('resident')">👤 Morador</button>
+<button onclick="openProtected('resident')">👤 Morador</button>
 <button onclick="openProtected('gate')">🛡️ Portaria</button>
 <button onclick="openProtected('admin')">⚙️ Administração</button>
 </div>
 
 <section id="home" class="view">
-<div class="card"><h2>Primeira versão</h2><p class="muted">Cadastre convidados, gere convites com QR Code e registre a entrada na portaria.</p></div>
+<div class="card"><h2>Controle de Acesso</h2><p class="muted">Cadastre convidados, gere convites com QR Code e registre a entrada na portaria.</p></div>
 <div class="grid" style="margin-top:16px">
-<div class="card role-card"><div><div class="icon">👤</div><h3>Área do Morador</h3><p class="muted">Cadastre e gerencie os convidados da sua festa.</p></div><button class="btn primary" onclick="go('resident')">Acessar</button></div>
+<div class="card role-card"><div><div class="icon">👤</div><h3>Área do Morador</h3><p class="muted">Cadastre e gerencie os convidados da sua festa. Acesso com Bloco, Apto e senha fornecida pela administração.</p></div><button class="btn primary" onclick="openProtected('resident')">Acessar</button></div>
 <div class="card role-card"><div><div class="icon">🛡️</div><h3>Portaria</h3><p class="muted">Valide QR Code/código e registre as entradas.</p></div><button class="btn primary" onclick="openProtected('gate')">Acessar</button></div>
-<div class="card role-card"><div><div class="icon">⚙️</div><h3>Administração</h3><p class="muted">Acompanhe festas, convidados e histórico de acessos.</p></div><button class="btn primary" onclick="openProtected('admin')">Acessar</button></div>
+<div class="card role-card"><div><div class="icon">⚙️</div><h3>Administração</h3><p class="muted">Acompanhe festas, convidados, senhas de acesso e histórico.</p></div><button class="btn primary" onclick="openProtected('admin')">Acessar</button></div>
 </div>
 </section>
 
 <section id="resident" class="view hidden">
 <div class="card">
-<h2>👤 Cadastro de convidados</h2>
+<div class="card-head"><h2 style="margin:0">👤 Cadastro de convidados</h2><span class="pill green" id="residentUnitBadge"></span></div>
 <div class="row">
 <div><label>Nome do responsável</label><input id="hostName" placeholder="Ex.: João Silva"></div>
-<div><label>Bloco</label><select id="block"><option value="">Selecione</option></select></div>
-<div><label>Apartamento</label><select id="apt"><option value="">Selecione</option><option value="101">101</option><option value="102">102</option><option value="103">103</option><option value="104">104</option><option value="201">201</option><option value="202">202</option><option value="203">203</option><option value="204">204</option><option value="301">301</option><option value="302">302</option><option value="303">303</option><option value="304">304</option></select></div>
+<div><label>Data da festa</label><input id="partyDate" type="date" min=""></div>
 </div>
 <div class="row">
-<div><label>Data da festa</label><input id="partyDate" type="date" min=""></div>
-<div class="row"><div><label>Horário início</label><input id="partyTimeStart" type="time" value="19:00"></div><div><label>Horário fim</label><input id="partyTimeEnd" type="time" value="23:00"></div></div>
+<div><label>Horário início</label><input id="partyTimeStart" type="time" value="19:00" min="08:30" max="21:30"></div>
+<div><label>Horário fim</label><input id="partyTimeEnd" type="time" value="21:30" min="08:30" max="21:30"></div>
 </div>
-<h3>Convidados</h3>
+<p class="muted" style="margin-top:-4px">Horário de funcionamento do salão: 08:30 às 21:30. Limite de 30 convidados por reserva.</p>
+<h3>Convidados <span class="muted" id="guestCountLabel" style="font-weight:400;font-size:13px"></span></h3>
 <div id="guestInputs"></div>
 <button class="btn secondary" onclick="addGuestInput()">+ Adicionar convidado</button>
 <hr style="border:0;border-top:1px solid var(--line);margin:20px 0">
-<button class="btn primary" onclick="saveParty()">Finalizar / Salvar lista</button>
+<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn primary" onclick="saveParty()">Finalizar / Salvar lista</button><button class="btn secondary hidden" id="cancelEditBtn" onclick="cancelEditParty()">Cancelar edição</button></div>
 </div>
-<div class="card" style="margin-top:16px"><h3>Lista atual</h3><div id="residentList"></div></div>
+
+<div class="card" style="margin-top:16px"><h3>Minhas reservas</h3><div id="residentList"></div></div>
+
+<div class="card" style="margin-top:16px" id="rulesCard">
+<div class="card-head"><h3 style="margin:0">📋 Regras de uso do salão</h3><button class="btn secondary" onclick="printOnly('#rulesCard')">🖨️ Exportar PDF</button></div>
+<ul class="rules">
+<li>Cadastro <b>obrigatório</b> da lista de convidados com <b>nome completo, telefone e RG/CPF</b>. Crianças: apenas nome completo.</li>
+<li><b>Não</b> será permitida a entrada de pessoas que não estejam na lista.</li>
+<li><b>Horário de funcionamento: 08:30 às 21:30.</b></li>
+<li>Proibido som automotivo.</li>
+<li>Som somente do salão — não é permitido som particular (proximidade das casas: não ultrapassar 30 decibéis).</li>
+<li>Ao término da utilização, realizar a limpeza do espaço e arredores.</li>
+<li>A piscina é de uso <b>exclusivo</b> de proprietários/inquilinos, conforme deliberado em assembleia.</li>
+<li>Taxa de uso das dependências: <b>R$ 50,00</b>, valor fixado em assembleia.</li>
+<li><b>Limite de 30 convidados por reserva.</b></li>
+<li>Cancelamentos com menos de 3 dias de antecedência serão considerados confirmados.</li>
+<li>Dúvidas ou sugestões: fale com a administração do condomínio.</li>
+</ul>
+</div>
 </section>
 
 <section id="gate" class="view hidden"><div class="notice">Área protegida por senha.</div>
@@ -76,144 +96,316 @@ label{display:block;font-weight:700;margin:12px 0 6px}input,select{width:100%;pa
 </section>
 
 <section id="admin" class="view hidden"><div class="notice">Área protegida por senha.</div>
-<div class="card"><div class="card-head"><h2 style="margin:0">⚙️ Administração</h2><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn secondary" onclick="window.print()">🖨️ Exportar em PDF</button><button class="btn secondary" onclick="openPasswordChange()" title="Trocar senhas">⚙️ Trocar senha</button></div></div><div id="adminSummary"></div></div>
-<div class="card" style="margin-top:16px"><h3>Convidados</h3><div id="adminGuests"></div></div>
+<div class="card"><div class="card-head"><h2 style="margin:0">⚙️ Administração</h2><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn secondary" onclick="window.print()">🖨️ Exportar em PDF</button><button class="btn secondary" onclick="openPasswordChange()" title="Trocar senhas">⚙️ Trocar senha</button></div></div><div id="adminOverview"></div></div>
+
+<div class="card" style="margin-top:16px" id="residentCodesCard">
+<div class="card-head"><h3 style="margin:0">🔑 Senhas de acesso dos moradores</h3><button class="btn secondary" onclick="printOnly('#residentCodesCard')">🖨️ Exportar PDF</button></div>
+<p class="muted">Gere a senha de uma unidade específica, ou gere de uma vez para todos os apartamentos do condomínio. Compartilhe a senha com o morador correspondente.</p>
+<div class="row">
+<div><label>Bloco</label><select id="codeBlock"></select></div>
+<div><label>Apartamento</label><select id="codeApt"></select></div>
+</div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 4px">
+<button class="btn secondary" onclick="generateSingleCode()">🎲 Gerar senha desta unidade</button>
+<button class="btn secondary" onclick="generateAllCodes()">🎲🎲 Gerar senhas para todos os apartamentos</button>
+</div>
+<div id="residentCodesList" style="margin-top:10px"></div>
+</div>
+
+<div class="card" style="margin-top:16px"><h3>Reservas ativas</h3><div id="adminParties"></div></div>
 <div class="card" style="margin-top:16px"><h3>🗓️ Histórico de festas</h3><div id="partyHistoryList"></div></div>
 </section>
 </main>
 <div class="footer">Protótipo local • Controle de acesso do salão de festas</div>
 </div>
 
-<div id="lockModal" class="modal hidden"><div class="modal-box lock"><div class="icon">🔐</div><h2 id="lockTitle">Área protegida</h2><p class="muted">Digite a senha para continuar.</p><input id="lockPassword" type="password" placeholder="Senha" onkeydown="if(event.key==='Enter')unlock()"><div id="lockError" class="error"></div><button class="btn primary" style="margin-top:12px;width:100%" onclick="unlock()">Entrar</button><button class="btn secondary" style="margin-top:8px;width:100%" onclick="closeLock()">Cancelar</button></div></div><div id="modal" class="modal hidden"><div class="modal-box"><div id="modalContent"></div><div style="text-align:right;margin-top:15px"><button class="btn secondary" onclick="closeModal()">Fechar</button></div></div></div>
+<div id="lockModal" class="modal hidden"><div class="modal-box lock"><div class="icon">🔐</div><h2 id="lockTitle">Área protegida</h2><p class="muted" id="lockSubtitle">Digite a senha para continuar.</p><div id="lockResidentFields" class="hidden" style="text-align:left"><label>Bloco</label><select id="lockBlock"></select><label>Apartamento</label><select id="lockApt"></select><label>Senha de acesso</label></div><input id="lockPassword" type="password" placeholder="Senha" onkeydown="if(event.key==='Enter')unlock()"><div id="lockError" class="error"></div><button class="btn primary" style="margin-top:12px;width:100%" onclick="unlock()">Entrar</button><button class="btn secondary" style="margin-top:8px;width:100%" onclick="closeLock()">Cancelar</button></div></div>
+<div id="modal" class="modal hidden"><div class="modal-box"><div id="modalContent"></div><div style="text-align:right;margin-top:15px"><button class="btn secondary" onclick="closeModal()">Fechar</button></div></div></div>
 
 <script>
-const KEY='condominio_salao_v1';
-let data=JSON.parse(localStorage.getItem(KEY)||'null')||{party:null,guests:[],history:[]};
+/* ---------- Config ---------- */
+const BLOCKS=Array.from({length:26},(_,i)=>String(i+1));
+const APTS=['101','102','103','104','201','202','203','204','301','302','303','304'];
+function fillBlockApt(blockSelId,aptSelId){
+ const bs=document.getElementById(blockSelId),as=document.getElementById(aptSelId);
+ if(bs&&!bs.dataset.filled){bs.innerHTML='<option value="">Selecione</option>'+BLOCKS.map(b=>`<option value="${b}">${b}</option>`).join('');bs.dataset.filled='1'}
+ if(as&&!as.dataset.filled){as.innerHTML='<option value="">Selecione</option>'+APTS.map(a=>`<option value="${a}">${a}</option>`).join('');as.dataset.filled='1'}
+}
+
+/* ---------- Data (parties) ---------- */
+const KEY='condominio_salao_v2';
+let data=loadData();
+function loadData(){
+ const raw=JSON.parse(localStorage.getItem(KEY)||'null');
+ if(raw&&Array.isArray(raw.parties))return raw;
+ const old=JSON.parse(localStorage.getItem('condominio_salao_v1')||'null');
+ if(old&&old.party){
+  return {parties:[{id:uid(),host:old.party.host,block:old.party.block,apt:old.party.apt,date:old.party.date,time:old.party.time,guests:old.guests||[]}],history:old.history||[]};
+ }
+ return {parties:[],history:[]};
+}
+function save(){localStorage.setItem(KEY,JSON.stringify(data));renderAll()}
+
 const HISTORY_KEY='condominio_salao_party_history_v1';
 let partyHistory=JSON.parse(localStorage.getItem(HISTORY_KEY)||'[]');
 function savePartyHistory(){localStorage.setItem(HISTORY_KEY,JSON.stringify(partyHistory))}
-let editingExisting=false;
 
+const PASS_KEY='condominio_salao_passwords_v1';
+const passwords=Object.assign({gate:'Portaria2026',admin:'AdmGreen2026'},JSON.parse(localStorage.getItem(PASS_KEY)||'null')||{});
+function savePasswords(){localStorage.setItem(PASS_KEY,JSON.stringify(passwords))}
+
+const RESIDENT_CODES_KEY='condominio_salao_resident_codes_v1';
+let residentCodes=JSON.parse(localStorage.getItem(RESIDENT_CODES_KEY)||'{}');
+function saveResidentCodes(){localStorage.setItem(RESIDENT_CODES_KEY,JSON.stringify(residentCodes))}
+
+let currentResidentAuth=null; // {block,apt}
+let editingPartyId=null;
+let protectedTarget=null;
+let expandedParties=new Set();
+
+/* ---------- Helpers ---------- */
 function todayISO(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
+function timeToMinutes(t){if(!t)return null;const[h,m]=t.split(':').map(Number);return h*60+m}
+function formatDate(d){if(!d)return '-';let [y,m,day]=d.split('-');return `${day}/${m}/${y}`}
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function uid(){return Math.random().toString(36).slice(2,8).toUpperCase()}
 function partyEndDate(party){
  if(!party||!party.date)return null;
  const[y,m,d]=party.date.split('-').map(Number);
  const matches=[...(party.time||'').matchAll(/(\d{1,2}):(\d{2})/g)];
  const last=matches.length?matches[matches.length-1]:null;
- const hh=last?parseInt(last[1],10):23,mm=last?parseInt(last[2],10):59;
+ const hh=last?parseInt(last[1],10):21,mm=last?parseInt(last[2],10):30;
  return new Date(y,m-1,d,hh,mm,0);
 }
-function checkPartyExpiry(){
- if(!data.party)return;
- const end=partyEndDate(data.party);
- if(end&&new Date()>end){
-  partyHistory.unshift({host:data.party.host,block:data.party.block,apt:data.party.apt,date:data.party.date,time:data.party.time,totalGuests:data.guests.length,entered:data.guests.filter(g=>g.entered).length});
-  savePartyHistory();
-  data={party:null,guests:[],history:[]};
-  editingExisting=false;
-  save();
- }
+function checkPartiesExpiry(){
+ if(!data.parties.length)return;
+ const now=new Date();
+ const remaining=[];
+ let changed=false;
+ data.parties.forEach(p=>{
+  const end=partyEndDate(p);
+  if(end&&now>end){
+   partyHistory.unshift({host:p.host,block:p.block,apt:p.apt,date:p.date,time:p.time,totalGuests:p.guests.length,entered:p.guests.filter(g=>g.entered).length});
+   changed=true;
+  }else remaining.push(p);
+ });
+ if(changed){savePartyHistory();data.parties=remaining;save()}
 }
-function save(){localStorage.setItem(KEY,JSON.stringify(data));renderAll()}
+function allGuestsFlat(){let out=[];data.parties.forEach(p=>p.guests.forEach(g=>out.push({party:p,guest:g})));return out}
+function findPartyById(id){return data.parties.find(p=>p.id===id)}
+
 function go(id){document.querySelectorAll('.view').forEach(v=>v.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');renderAll();window.scrollTo({top:0,behavior:'smooth'})}
-function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
-function uid(){return Math.random().toString(36).slice(2,8).toUpperCase()}
+
+function printOnly(selector){
+ document.querySelectorAll(selector).forEach(el=>el.classList.add('print-target'));
+ document.body.classList.add('print-only-mode');
+ window.print();
+ setTimeout(()=>{document.body.classList.remove('print-only-mode');document.querySelectorAll('.print-target').forEach(el=>el.classList.remove('print-target'))},600);
+}
+
+/* ---------- Guest inputs ---------- */
 function addGuestInput(name='',phone=''){
+ const rows=document.querySelectorAll('#guestInputs .guest-row').length;
+ if(rows>=30){alert('Limite de 30 convidados por reserva atingido.');return}
  let d=document.createElement('div');d.className='guest-row';
  d.style.gridTemplateColumns='1fr 1fr 44px';
- d.innerHTML=`<input class="guestName" placeholder="Nome completo" value="${esc(name)}"><input class="guestPhone" placeholder="Telefone (opcional)" value="${esc(phone)}"><button class="btn danger" onclick="this.parentElement.remove()">×</button>`;
- document.getElementById('guestInputs').appendChild(d)
+ d.innerHTML=`<input class="guestName" placeholder="Nome completo" value="${esc(name)}"><input class="guestPhone" placeholder="Telefone (opcional)" value="${esc(phone)}"><button class="btn danger" onclick="this.parentElement.remove();updateGuestCountLabel()">×</button>`;
+ document.getElementById('guestInputs').appendChild(d);
+ updateGuestCountLabel();
 }
+function updateGuestCountLabel(){
+ const n=document.querySelectorAll('#guestInputs .guest-row').length;
+ const el=document.getElementById('guestCountLabel');
+ if(el)el.textContent=`(${n}/30)`;
+}
+
+/* ---------- Save / Edit party ---------- */
 function saveParty(){
- const host=document.getElementById('hostName').value.trim(),block=document.getElementById('block').value.trim(),apt=document.getElementById('apt').value.trim(),date=document.getElementById('partyDate').value;
+ if(!currentResidentAuth){alert('Sessão expirada. Acesse novamente com Bloco, Apto e senha.');go('home');return}
+ const host=document.getElementById('hostName').value.trim(),date=document.getElementById('partyDate').value;
  const timeStart=document.getElementById('partyTimeStart').value,timeEnd=document.getElementById('partyTimeEnd').value;
  const rows=[...document.querySelectorAll('.guest-row')].map(r=>({name:r.querySelector('.guestName').value.trim(),phone:r.querySelector('.guestPhone').value.trim()})).filter(x=>x.name);
- if(!host||!block||!apt||!date||!timeStart||!timeEnd||!rows.length){alert('Preencha responsável, bloco, apartamento, data, horário início/fim e pelo menos um convidado.');return}
+ if(!host||!date||!timeStart||!timeEnd||!rows.length){alert('Preencha responsável, data, horário início/fim e pelo menos um convidado.');return}
  if(date<todayISO()){alert('A data da festa não pode estar no passado.');return}
- if(data.party&&!editingExisting){alert(`Já existe uma reserva ativa: Bloco ${data.party.block}, Apto ${data.party.apt}, dia ${formatDate(data.party.date)}. Só é possível ter uma reserva por vez. Use "Editar reserva" para alterá-la, ou aguarde ela ser concluída.`);return}
+ if(rows.length>30){alert('Máximo de 30 convidados por reserva.');return}
+ const startMin=timeToMinutes(timeStart),endMin=timeToMinutes(timeEnd);
+ if(startMin<timeToMinutes('08:30')||endMin>timeToMinutes('21:30')){alert('O horário do evento deve estar entre 08:30 e 21:30.');return}
+ if(endMin<=startMin){alert('O horário de término deve ser depois do horário de início.');return}
+ const conflict=data.parties.find(p=>p.date===date&&p.id!==editingPartyId);
+ if(conflict){alert(`O salão já está reservado para ${formatDate(date)} (Bloco ${conflict.block}, Apto ${conflict.apt}). Escolha outra data.`);return}
  const time=`${timeStart} às ${timeEnd}`;
- const oldByName=new Map(data.guests.map(g=>[g.name.toLowerCase(),g]));
- data.party={host,block,apt,date,time};
- data.guests=rows.map(r=>{const old=oldByName.get(r.name.toLowerCase());return old?{...old,name:r.name,phone:r.phone}:{
-   id:crypto.randomUUID?crypto.randomUUID():Date.now()+Math.random(),name:r.name,phone:r.phone,code:uid(),entered:false,entryTime:null
- }});
+ if(editingPartyId){
+  const p=findPartyById(editingPartyId);
+  if(!p){alert('Reserva não encontrada.');editingPartyId=null;return}
+  const oldByName=new Map(p.guests.map(g=>[g.name.toLowerCase(),g]));
+  p.host=host;p.date=date;p.time=time;
+  p.guests=rows.map(r=>{const old=oldByName.get(r.name.toLowerCase());return old?{...old,name:r.name,phone:r.phone}:{id:uid()+uid(),name:r.name,phone:r.phone,code:uid(),entered:false,entryTime:null}});
+ }else{
+  data.parties.push({id:uid()+uid(),host,block:currentResidentAuth.block,apt:currentResidentAuth.apt,date,time,
+   guests:rows.map(r=>({id:uid()+uid(),name:r.name,phone:r.phone,code:uid(),entered:false,entryTime:null}))});
+ }
  save();
- editingExisting=false;
- document.getElementById('hostName').value='';document.getElementById('block').value='';document.getElementById('apt').value='';document.getElementById('partyDate').value='';document.getElementById('partyTimeStart').value='19:00';document.getElementById('partyTimeEnd').value='23:00';
+ editingPartyId=null;
+ document.getElementById('cancelEditBtn').classList.add('hidden');
+ document.getElementById('hostName').value='';document.getElementById('partyDate').value='';document.getElementById('partyTimeStart').value='19:00';document.getElementById('partyTimeEnd').value='21:30';
  document.getElementById('guestInputs').innerHTML='';addGuestInput();
  alert('Lista salva com sucesso!');go('resident')
 }
-function editParty(){
- if(!data.party)return;
- const p=data.party;
+function editParty(id){
+ const p=findPartyById(id);if(!p)return;
  document.getElementById('hostName').value=p.host;
- document.getElementById('block').value=p.block;
- document.getElementById('apt').value=p.apt;
  document.getElementById('partyDate').value=p.date;
  const times=[...(p.time||'').matchAll(/(\d{1,2}:\d{2})/g)].map(m=>m[1]);
  document.getElementById('partyTimeStart').value=times[0]||'19:00';
- document.getElementById('partyTimeEnd').value=times[1]||'23:00';
+ document.getElementById('partyTimeEnd').value=times[1]||'21:30';
  document.getElementById('guestInputs').innerHTML='';
- if(data.guests.length)data.guests.forEach(g=>addGuestInput(g.name,g.phone));else addGuestInput();
- editingExisting=true;
+ if(p.guests.length)p.guests.forEach(g=>addGuestInput(g.name,g.phone));else addGuestInput();
+ editingPartyId=id;
+ document.getElementById('cancelEditBtn').classList.remove('hidden');
  window.scrollTo({top:0,behavior:'smooth'});
- alert('Editando reserva existente. Altere os dados e clique em "Finalizar / Salvar lista" para atualizar.');
+ alert('Editando reserva. Altere os dados e clique em "Finalizar / Salvar lista" para atualizar.');
 }
-function formatDate(d){if(!d)return '-';let [y,m,day]=d.split('-');return `${day}/${m}/${y}`}
+function cancelEditParty(){
+ editingPartyId=null;
+ document.getElementById('cancelEditBtn').classList.add('hidden');
+ document.getElementById('hostName').value='';document.getElementById('partyDate').value='';document.getElementById('partyTimeStart').value='19:00';document.getElementById('partyTimeEnd').value='21:30';
+ document.getElementById('guestInputs').innerHTML='';addGuestInput();
+}
+function deleteParty(id){
+ const p=findPartyById(id);if(!p)return;
+ if(!confirm(`Excluir toda a reserva de ${formatDate(p.date)} (${p.guests.length} convidado(s))? Esta ação não pode ser desfeita.`))return;
+ data.parties=data.parties.filter(x=>x.id!==id);
+ save();
+}
+
+/* ---------- Resident view ---------- */
 function renderResident(){
- const p=data.party,el=document.getElementById('residentList');
- if(!p){el.innerHTML='<div class="empty">Nenhuma reserva cadastrada.</div>';return}
- const wasExpanded=!!(document.getElementById('residentDetails')&&!document.getElementById('residentDetails').classList.contains('hidden'));
- el.innerHTML=`<p><b>Bloco ${esc(p.block||'-')}</b> • Apto ${esc(p.apt||'-')} • ${formatDate(p.date)}</p>
- <div style="display:flex;gap:8px;flex-wrap:wrap;margin:10px 0">
-  <button class="btn secondary" id="toggleDetailsBtn" onclick="toggleResidentDetails()">${wasExpanded?'🔼 Recolher detalhes':'🔽 Expandir detalhes'}</button>
-  <button class="btn secondary" onclick="editParty()">✏️ Editar reserva</button>
- </div>
- <div id="residentDetails" class="${wasExpanded?'':'hidden'}">
-  <p><b>${esc(p.host)}</b> • ${esc(p.time)}</p>
-  <table class="table"><thead><tr><th>Convidado</th><th>Telefone</th><th>Código</th><th>Status</th><th></th><th></th></tr></thead><tbody>${data.guests.map(g=>`<tr><td>${esc(g.name)}</td><td>${esc(g.phone||'-')}</td><td><b>${g.code}</b></td><td>${g.entered?'<span class="pill green">Entrou</span>':'<span class="pill orange">Aguardando</span>'}</td><td><button class="btn secondary" onclick="showInvite('${g.id}')">Convite</button></td><td><button class="btn danger" onclick="deleteGuest('${g.id}')">Excluir</button></td></tr>`).join('')}</tbody></table>
- </div>`
+ const badge=document.getElementById('residentUnitBadge');
+ if(currentResidentAuth){badge.textContent=`Bloco ${currentResidentAuth.block} • Apto ${currentResidentAuth.apt}`;badge.classList.remove('hidden')}
+ updateGuestCountLabel();
+ const el=document.getElementById('residentList');
+ if(!currentResidentAuth){el.innerHTML='<div class="empty">Sessão não autenticada.</div>';return}
+ const mine=data.parties.filter(p=>p.block===currentResidentAuth.block&&p.apt===currentResidentAuth.apt).sort((a,b)=>a.date<b.date?-1:1);
+ if(!mine.length){el.innerHTML='<div class="empty">Nenhuma reserva cadastrada para esta unidade.</div>';return}
+ el.innerHTML=mine.map(p=>{
+  const exp=expandedParties.has(p.id);
+  return `<div class="party-card">
+   <p><b>${formatDate(p.date)}</b> • ${esc(p.time)} • ${p.guests.length} convidado(s)</p>
+   <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
+    <button class="btn secondary" onclick="toggleResidentDetails('${p.id}')">${exp?'🔼 Recolher':'🔽 Expandir'}</button>
+    <button class="btn secondary" onclick="editParty('${p.id}')">✏️ Editar</button>
+    <button class="btn danger" onclick="deleteParty('${p.id}')">🗑️ Excluir reserva</button>
+   </div>
+   <div class="${exp?'':'hidden'}">
+    <p><b>${esc(p.host)}</b></p>
+    <table class="table"><thead><tr><th>Convidado</th><th>Telefone</th><th>Código</th><th>Status</th><th></th><th></th></tr></thead><tbody>${p.guests.map(g=>`<tr><td>${esc(g.name)}</td><td>${esc(g.phone||'-')}</td><td><b>${g.code}</b></td><td>${g.entered?'<span class="pill green">Entrou</span>':'<span class="pill orange">Aguardando</span>'}</td><td><button class="btn secondary" onclick="showInvite('${p.id}','${g.id}')">Convite</button></td><td><button class="btn danger" onclick="deleteGuest('${p.id}','${g.id}')">Excluir</button></td></tr>`).join('')}</tbody></table>
+   </div>
+  </div>`;
+ }).join('');
 }
-function toggleResidentDetails(){
- const d=document.getElementById('residentDetails');
- d.classList.toggle('hidden');
- document.getElementById('toggleDetailsBtn').textContent=d.classList.contains('hidden')?'🔽 Expandir detalhes':'🔼 Recolher detalhes';
-}
+function toggleResidentDetails(id){expandedParties.has(id)?expandedParties.delete(id):expandedParties.add(id);renderResident()}
+
+/* ---------- Gate ---------- */
 function validateGate(){
  const code=document.getElementById('gateCode').value.trim().toUpperCase(),nameQuery=document.getElementById('gateName').value.trim().toLowerCase();
  const el=document.getElementById('gateResult');
  let matches=[];
- if(code){matches=data.guests.filter(x=>x.code===code)}
- else if(nameQuery){matches=data.guests.filter(x=>x.name.toLowerCase().includes(nameQuery))}
- if(!matches.length){el.innerHTML='<div class="result no"><div class="big">🔴 NÃO AUTORIZADO</div><p>Convidado não encontrado na lista desta festa.</p></div>';return}
+ if(code){matches=allGuestsFlat().filter(x=>x.guest.code===code)}
+ else if(nameQuery){matches=allGuestsFlat().filter(x=>x.guest.name.toLowerCase().includes(nameQuery))}
+ if(!matches.length){el.innerHTML='<div class="result no"><div class="big">🔴 NÃO AUTORIZADO</div><p>Convidado não encontrado em nenhuma lista ativa.</p></div>';return}
  if(matches.length>1){
-  el.innerHTML=`<div class="notice">${matches.length} convidados encontrados. Selecione o correto:</div>`+matches.map(g=>`<button class="btn secondary" style="width:100%;text-align:left;margin-bottom:8px" onclick="showGateResult('${g.id}')">${esc(g.name)} ${g.entered?'✅ já entrou':''}</button>`).join('');
+  el.innerHTML=`<div class="notice">${matches.length} convidados encontrados. Selecione o correto:</div>`+matches.map(m=>`<button class="btn secondary" style="width:100%;text-align:left;margin-bottom:8px" onclick="showGateResult('${m.party.id}','${m.guest.id}')">${esc(m.guest.name)} — Bloco ${esc(m.party.block)}/${esc(m.party.apt)} ${m.guest.entered?'✅':''}</button>`).join('');
   return;
  }
- showGateResult(matches[0].id);
+ showGateResult(matches[0].party.id,matches[0].guest.id);
 }
-function showGateResult(id){
- let g=data.guests.find(x=>x.id==id);
+function showGateResult(partyId,guestId){
+ const p=findPartyById(partyId);const g=p&&p.guests.find(x=>x.id===guestId);
  const el=document.getElementById('gateResult');
- if(!g){el.innerHTML='<div class="result no"><div class="big">🔴 NÃO AUTORIZADO</div><p>Convidado não encontrado na lista desta festa.</p></div>';return}
+ if(!p||!g){el.innerHTML='<div class="result no"><div class="big">🔴 NÃO AUTORIZADO</div><p>Convidado não encontrado.</p></div>';return}
  if(g.entered){el.innerHTML=`<div class="result warn"><div class="big">⚠️ CONVITE JÁ UTILIZADO</div><p><b>${esc(g.name)}</b><br>Entrada registrada às ${esc(g.entryTime)}.</p></div>`;return}
- el.innerHTML=`<div class="result ok"><div class="big">🟢 ENTRADA AUTORIZADA</div><p><b>${esc(g.name)}</b><br>Apto ${esc(data.party?.apt||'-')} • Festa de ${esc(data.party?.host||'-')}</p><button class="btn green" onclick="confirmEntry('${g.id}')">✓ CONFIRMAR ENTRADA</button></div>`
+ el.innerHTML=`<div class="result ok"><div class="big">🟢 ENTRADA AUTORIZADA</div><p><b>${esc(g.name)}</b><br>Bloco ${esc(p.block)} • Apto ${esc(p.apt)} • Festa de ${esc(p.host)}</p><button class="btn green" onclick="confirmEntry('${p.id}','${g.id}')">✓ CONFIRMAR ENTRADA</button></div>`
 }
-function confirmEntry(id){let g=data.guests.find(x=>x.id==id);if(!g)return;g.entered=true;g.entryTime=new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});data.history.unshift({name:g.name,code:g.code,time:g.entryTime,date:new Date().toLocaleDateString('pt-BR')});save();document.getElementById('gateCode').value='';document.getElementById('gateName').value='';document.getElementById('gateResult').innerHTML='<div class="result ok"><div class="big">✓ ENTRADA REGISTRADA</div><p>O acesso foi registrado com sucesso.</p></div>'}
+function confirmEntry(partyId,guestId){
+ const p=findPartyById(partyId);const g=p&&p.guests.find(x=>x.id===guestId);if(!g)return;
+ g.entered=true;g.entryTime=new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+ data.history.unshift({name:g.name,code:g.code,time:g.entryTime,date:new Date().toLocaleDateString('pt-BR'),block:p.block,apt:p.apt});
+ save();
+ document.getElementById('gateCode').value='';document.getElementById('gateName').value='';
+ document.getElementById('gateResult').innerHTML='<div class="result ok"><div class="big">✓ ENTRADA REGISTRADA</div><p>O acesso foi registrado com sucesso.</p></div>'
+}
 function clearGate(){document.getElementById('gateCode').value='';document.getElementById('gateName').value='';document.getElementById('gateResult').innerHTML=''}
-function renderGateHistory(){let e=document.getElementById('gateHistory');e.innerHTML=data.history.length?`<table class="table"><thead><tr><th>Horário</th><th>Convidado</th><th>Código</th></tr></thead><tbody>${data.history.slice(0,20).map(x=>`<tr><td>${x.time}</td><td>${esc(x.name)}</td><td>${x.code}</td></tr>`).join('')}</tbody></table>`:'<div class="empty">Nenhuma entrada registrada.</div>'}
-function deleteGuest(id){
- let g=data.guests.find(x=>x.id==id);if(!g)return;
+function renderGateHistory(){let e=document.getElementById('gateHistory');e.innerHTML=data.history.length?`<table class="table"><thead><tr><th>Horário</th><th>Convidado</th><th>Bloco/Apto</th><th>Código</th></tr></thead><tbody>${data.history.slice(0,20).map(x=>`<tr><td>${x.time}</td><td>${esc(x.name)}</td><td>${esc(x.block||'-')}/${esc(x.apt||'-')}</td><td>${x.code}</td></tr>`).join('')}</tbody></table>`:'<div class="empty">Nenhuma entrada registrada.</div>'}
+function deleteGuest(partyId,guestId){
+ const p=findPartyById(partyId);if(!p)return;
+ const g=p.guests.find(x=>x.id===guestId);if(!g)return;
  if(!confirm(`Excluir "${g.name}" da lista de convidados?`))return;
- data.guests=data.guests.filter(x=>x.id!=id);
+ p.guests=p.guests.filter(x=>x.id!==guestId);
  save();
 }
+
+/* ---------- Admin ---------- */
 function renderAdmin(){
- let total=data.guests.length,entered=data.guests.filter(g=>g.entered).length;
- document.getElementById('adminSummary').innerHTML=data.party?`<p><b>${esc(data.party.host)}</b> • Bloco ${esc(data.party.block||'-')} • Apto ${esc(data.party.apt)} • ${formatDate(data.party.date)} • ${esc(data.party.time)}</p><div class="stats"><div class="stat"><span>Convidados</span><b>${total}</b></div><div class="stat"><span>Entraram</span><b>${entered}</b></div><div class="stat"><span>Aguardando</span><b>${total-entered}</b></div></div>`:'<div class="empty">Nenhuma festa cadastrada.</div>';
- document.getElementById('adminGuests').innerHTML=total?`<table class="table"><thead><tr><th>Convidado</th><th>Telefone</th><th>Código</th><th>Status</th><th>Horário</th><th></th></tr></thead><tbody>${data.guests.map(g=>`<tr><td>${esc(g.name)}</td><td>${esc(g.phone||'-')}</td><td>${g.code}</td><td>${g.entered?'<span class="pill green">Entrou</span>':'<span class="pill orange">Aguardando</span>'}</td><td>${g.entryTime||'-'}</td><td><button class="btn danger" onclick="deleteGuest('${g.id}')">Excluir</button></td></tr>`).join('')}</tbody></table>`:'<div class="empty">Nenhum convidado.</div>'
+ const el=document.getElementById('adminParties');
+ if(!data.parties.length){el.innerHTML='<div class="empty">Nenhuma reserva ativa.</div>';document.getElementById('adminOverview').innerHTML='<div class="empty">Nenhuma festa cadastrada.</div>';return}
+ const totalGuests=data.parties.reduce((s,p)=>s+p.guests.length,0),totalEntered=data.parties.reduce((s,p)=>s+p.guests.filter(g=>g.entered).length,0);
+ document.getElementById('adminOverview').innerHTML=`<div class="stats"><div class="stat"><span>Reservas ativas</span><b>${data.parties.length}</b></div><div class="stat"><span>Convidados</span><b>${totalGuests}</b></div><div class="stat"><span>Entraram</span><b>${totalEntered}</b></div><div class="stat"><span>Aguardando</span><b>${totalGuests-totalEntered}</b></div></div>`;
+ el.innerHTML=data.parties.sort((a,b)=>a.date<b.date?-1:1).map(p=>{
+  const entered=p.guests.filter(g=>g.entered).length;
+  return `<div class="party-card">
+   <p><b>${esc(p.host)}</b> • Bloco ${esc(p.block)} • Apto ${esc(p.apt)} • ${formatDate(p.date)} • ${esc(p.time)} • ${entered}/${p.guests.length} entraram</p>
+   <table class="table"><thead><tr><th>Convidado</th><th>Telefone</th><th>Código</th><th>Status</th><th>Horário</th><th></th></tr></thead><tbody>${p.guests.map(g=>`<tr><td>${esc(g.name)}</td><td>${esc(g.phone||'-')}</td><td>${g.code}</td><td>${g.entered?'<span class="pill green">Entrou</span>':'<span class="pill orange">Aguardando</span>'}</td><td>${g.entryTime||'-'}</td><td><button class="btn danger" onclick="deleteGuest('${p.id}','${g.id}')">Excluir</button></td></tr>`).join('')}</tbody></table>
+  </div>`;
+ }).join('');
 }
-function showInvite(id){let g=data.guests.find(x=>x.id==id);if(!g)return;let payload=encodeURIComponent(JSON.stringify({code:g.code,name:g.name,party:data.party?.host||'',apt:data.party?.apt||''}));let qrUrl=`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${payload}`;let waText=encodeURIComponent(`🎉 Convite - Festa de ${data.party?.host||''}\nOlá ${g.name}, você está convidado(a)!\nBloco ${data.party?.block||'-'} • Apto ${data.party?.apt||''}\nData: ${formatDate(data.party?.date)} • ${data.party?.time||''}\nCódigo de acesso: ${g.code}\nQR Code: ${qrUrl}\nApresente este código ou o QR Code na portaria.`);document.getElementById('modalContent').innerHTML=`<h2 style="text-align:center">🎉 Convite</h2><p style="text-align:center"><b>${esc(g.name)}</b><br>Festa de ${esc(data.party?.host||'')}<br>Bloco ${esc(data.party?.block||'-')} • Apto ${esc(data.party?.apt||'')}<br>${g.phone?`Telefone: ${esc(g.phone)}`:''}</p><img class="qr" alt="QR Code" src="${qrUrl}"><p style="text-align:center">Código: <b style="font-size:22px">${g.code}</b></p><p class="muted" style="text-align:center">Apresente este QR Code ou informe o código na portaria.</p><a class="btn whatsapp" style="width:100%;justify-content:center;text-decoration:none;margin-top:10px" href="https://wa.me/?text=${waText}" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.09c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09.99-2.38.26-.29.57-.36.76-.36.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.17-.29.37-.42.5-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.63-.14.26.09 1.66.78 1.94.93.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg> Compartilhar convite no WhatsApp</a>`;document.getElementById('modal').classList.remove('hidden')}
+function renderPartyHistory(){
+ const el=document.getElementById('partyHistoryList');
+ if(!el)return;
+ el.innerHTML=partyHistory.length?`<table class="table"><thead><tr><th>Data</th><th>Morador</th><th>Bloco/Apto</th><th>Convidados</th><th>Entraram</th></tr></thead><tbody>${partyHistory.slice(0,30).map(h=>`<tr><td>${formatDate(h.date)}</td><td>${esc(h.host)}</td><td>${esc(h.block||'-')} / ${esc(h.apt||'-')}</td><td>${h.totalGuests}</td><td>${h.entered}</td></tr>`).join('')}</tbody></table>`:'<div class="empty">Nenhuma festa concluída ainda.</div>';
+}
+
+/* ---------- Resident access codes ---------- */
+function codeKey(block,apt){return block+'-'+apt}
+function generateSingleCode(){
+ const block=document.getElementById('codeBlock').value,apt=document.getElementById('codeApt').value;
+ if(!block||!apt){alert('Selecione o bloco e o apartamento.');return}
+ residentCodes[codeKey(block,apt)]={code:uid(),createdAt:todayISO()};
+ saveResidentCodes();
+ renderResidentCodes();
+ alert(`Senha gerada para Bloco ${block} / Apto ${apt}: ${residentCodes[codeKey(block,apt)].code}`);
+}
+function generateAllCodes(){
+ const hasExisting=Object.keys(residentCodes).length>0;
+ if(hasExisting&&!confirm('Isso vai gerar novas senhas para TODOS os apartamentos, substituindo as senhas já existentes. Deseja continuar?'))return;
+ BLOCKS.forEach(b=>APTS.forEach(a=>{residentCodes[codeKey(b,a)]={code:uid(),createdAt:todayISO()}}));
+ saveResidentCodes();
+ renderResidentCodes();
+ alert('Senhas geradas para todos os apartamentos. Use "Exportar PDF" para gerar o documento e distribuir aos moradores.');
+}
+function regenerateCode(block,apt){
+ if(!confirm(`Gerar uma nova senha para Bloco ${block} / Apto ${apt}? A senha antiga deixará de funcionar.`))return;
+ residentCodes[codeKey(block,apt)]={code:uid(),createdAt:todayISO()};
+ saveResidentCodes();
+ renderResidentCodes();
+}
+function renderResidentCodes(){
+ const el=document.getElementById('residentCodesList');
+ const keys=Object.keys(residentCodes);
+ if(!keys.length){el.innerHTML='<div class="empty">Nenhuma senha gerada ainda.</div>';return}
+ const rows=[];
+ BLOCKS.forEach(b=>APTS.forEach(a=>{const k=codeKey(b,a);if(residentCodes[k])rows.push({block:b,apt:a,...residentCodes[k]})}));
+ el.innerHTML=`<table class="table"><thead><tr><th>Bloco</th><th>Apto</th><th>Senha</th><th>Gerada em</th><th></th></tr></thead><tbody>${rows.map(r=>`<tr><td>${esc(r.block)}</td><td>${esc(r.apt)}</td><td><b>${r.code}</b></td><td>${formatDate(r.createdAt)}</td><td><button class="btn secondary" onclick="regenerateCode('${r.block}','${r.apt}')">🔄 Nova senha</button></td></tr>`).join('')}</tbody></table>`;
+}
+
+/* ---------- Invite / QR ---------- */
+function showInvite(partyId,guestId){
+ const p=findPartyById(partyId);const g=p&&p.guests.find(x=>x.id===guestId);if(!g)return;
+ let payload=encodeURIComponent(JSON.stringify({code:g.code,name:g.name,party:p.host,apt:p.apt}));
+ let qrUrl=`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${payload}`;
+ let waText=encodeURIComponent(`🎉 Convite - Festa de ${p.host}\nOlá ${g.name}, você está convidado(a)!\nBloco ${p.block} • Apto ${p.apt}\nData: ${formatDate(p.date)} • ${p.time}\nCódigo de acesso: ${g.code}\nQR Code: ${qrUrl}\nApresente este código ou o QR Code na portaria.`);
+ document.getElementById('modalContent').innerHTML=`<h2 style="text-align:center">🎉 Convite</h2><p style="text-align:center"><b>${esc(g.name)}</b><br>Festa de ${esc(p.host)}<br>Bloco ${esc(p.block)} • Apto ${esc(p.apt)}<br>${g.phone?`Telefone: ${esc(g.phone)}`:''}</p><img class="qr" alt="QR Code" src="${qrUrl}"><p style="text-align:center">Código: <b style="font-size:22px">${g.code}</b></p><p class="muted" style="text-align:center">Apresente este QR Code ou informe o código na portaria.</p><a class="btn whatsapp" style="width:100%;justify-content:center;text-decoration:none;margin-top:10px" href="https://wa.me/?text=${waText}" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.09c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09.99-2.38.26-.29.57-.36.76-.36.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.17-.29.37-.42.5-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.63-.14.26.09 1.66.78 1.94.93.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg> Compartilhar convite no WhatsApp</a>`;
+ document.getElementById('modal').classList.remove('hidden')
+}
 function closeModal(){stopQrScanner();document.getElementById('modal').classList.add('hidden')}
 function openQrScanner(){
  document.getElementById('modalContent').innerHTML=`<h2 style="text-align:center">📷 Escanear QR Code</h2><div id="qr-reader" style="width:100%"></div><p class="muted" style="text-align:center">Aponte a câmera para o QR Code do convidado.</p>`;
@@ -243,24 +435,42 @@ function handleQrResult(text){
  document.getElementById('gateName').value='';
  validateGate();
 }
-let protectedTarget=null;
-const PASS_KEY='condominio_salao_passwords_v1';
-const passwords=Object.assign({gate:'Portaria2026',admin:'AdmGreen2026'},JSON.parse(localStorage.getItem(PASS_KEY)||'null')||{});
-function savePasswords(){localStorage.setItem(PASS_KEY,JSON.stringify(passwords))}
 
+/* ---------- Access control (lock modal) ---------- */
 function openProtected(target){
  protectedTarget=target;
- document.getElementById('lockTitle').textContent=target==='gate'?'🔐 Acesso à Portaria':'🔐 Acesso à Administração';
  document.getElementById('lockPassword').value='';
  document.getElementById('lockError').textContent='';
+ const residentFields=document.getElementById('lockResidentFields');
+ if(target==='resident'){
+  document.getElementById('lockTitle').textContent='🔐 Acesso do Morador';
+  document.getElementById('lockSubtitle').textContent='Informe Bloco, Apartamento e a senha fornecida pela administração.';
+  fillBlockApt('lockBlock','lockApt');
+  document.getElementById('lockBlock').value='';document.getElementById('lockApt').value='';
+  residentFields.classList.remove('hidden');
+ }else{
+  document.getElementById('lockTitle').textContent=target==='gate'?'🔐 Acesso à Portaria':'🔐 Acesso à Administração';
+  document.getElementById('lockSubtitle').textContent='Digite a senha para continuar.';
+  residentFields.classList.add('hidden');
+ }
  document.getElementById('lockModal').classList.remove('hidden');
  setTimeout(()=>document.getElementById('lockPassword').focus(),100);
 }
 function unlock(){
- const pass=document.getElementById('lockPassword').value;
- if(pass===passwords[protectedTarget]){
-   const target=protectedTarget;closeLock();go(target);
- }else document.getElementById('lockError').textContent='Senha incorreta.';
+ const err=document.getElementById('lockError');
+ const pass=document.getElementById('lockPassword').value.trim();
+ if(protectedTarget==='resident'){
+  const block=document.getElementById('lockBlock').value,apt=document.getElementById('lockApt').value;
+  if(!block||!apt){err.textContent='Selecione bloco e apartamento.';return}
+  const rec=residentCodes[codeKey(block,apt)];
+  if(!rec||pass!==rec.code){err.textContent='Bloco, apartamento ou senha incorretos.';return}
+  currentResidentAuth={block,apt};
+  editingPartyId=null;
+  closeLock();go('resident');
+ }else{
+  if(pass===passwords[protectedTarget]){const target=protectedTarget;closeLock();go(target)}
+  else err.textContent='Senha incorreta.';
+ }
 }
 function closeLock(){document.getElementById('lockModal').classList.add('hidden');protectedTarget=null}
 
@@ -298,21 +508,16 @@ function submitPasswordChange(){
  alert(`Senha da ${target==='gate'?'Portaria':'Administração'} alterada com sucesso!`);
 }
 
-function renderPartyHistory(){
- const el=document.getElementById('partyHistoryList');
- if(!el)return;
- el.innerHTML=partyHistory.length?`<table class="table"><thead><tr><th>Data</th><th>Morador</th><th>Bloco/Apto</th><th>Convidados</th><th>Entraram</th></tr></thead><tbody>${partyHistory.slice(0,30).map(h=>`<tr><td>${formatDate(h.date)}</td><td>${esc(h.host)}</td><td>${esc(h.block||'-')} / ${esc(h.apt||'-')}</td><td>${h.totalGuests}</td><td>${h.entered}</td></tr>`).join('')}</tbody></table>`:'<div class="empty">Nenhuma festa concluída ainda.</div>';
-}
-function renderAll(){renderResident();renderGateHistory();renderAdmin();renderPartyHistory()}
+/* ---------- Boot ---------- */
+function renderAll(){renderResident();renderGateHistory();renderAdmin();renderPartyHistory();renderResidentCodes()}
 document.addEventListener('DOMContentLoaded',()=>{
  document.getElementById('partyDate').min=todayISO();
- const blockSel=document.getElementById('block');
- for(let i=1;i<=26;i++){const o=document.createElement('option');o.value=String(i);o.textContent=String(i);blockSel.appendChild(o)}
- checkPartyExpiry();
+ fillBlockApt('codeBlock','codeApt');
+ checkPartiesExpiry();
  if(!document.getElementById('guestInputs').children.length)addGuestInput();
  renderAll();
 })
-setInterval(checkPartyExpiry,60000)
+setInterval(checkPartiesExpiry,60000)
 </script>
 </body>
 </html>
