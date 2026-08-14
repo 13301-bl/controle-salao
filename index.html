@@ -123,7 +123,20 @@ ul.rules{padding-left:20px;margin:8px 0}ul.rules li{margin-bottom:8px;line-heigh
 </div>
 
 <div class="card" style="margin-top:16px"><h3>Reservas ativas</h3><div id="adminParties"></div></div>
-<div class="card" style="margin-top:16px"><h3>🗓️ Histórico de festas</h3><div id="partyHistoryList"></div></div>
+<div class="card" style="margin-top:16px" id="partyHistoryCard">
+<div class="card-head"><h3 style="margin:0">🗓️ Histórico de festas</h3><button class="btn secondary" onclick="printOnly('#partyHistoryCard')">🖨️ Exportar PDF</button></div>
+<div class="row">
+<div><label>Ano</label><select id="historyYearFilter" onchange="renderPartyHistory()"></select></div>
+<div><label>Mês</label><select id="historyMonthFilter" onchange="renderPartyHistory()">
+<option value="">Todos</option>
+<option value="01">Janeiro</option><option value="02">Fevereiro</option><option value="03">Março</option>
+<option value="04">Abril</option><option value="05">Maio</option><option value="06">Junho</option>
+<option value="07">Julho</option><option value="08">Agosto</option><option value="09">Setembro</option>
+<option value="10">Outubro</option><option value="11">Novembro</option><option value="12">Dezembro</option>
+</select></div>
+</div>
+<div id="partyHistoryList"></div>
+</div>
 </section>
 </main>
 <div class="footer">Protótipo local • Controle de acesso do salão de festas</div>
@@ -372,7 +385,19 @@ function renderAdmin(){
 function renderPartyHistory(){
  const el=document.getElementById('partyHistoryList');
  if(!el)return;
- el.innerHTML=partyHistory.length?`<table class="table"><thead><tr><th>Data</th><th>Tipo</th><th>Morador</th><th>Bloco/Apto</th><th>Convidados</th><th>Entraram</th></tr></thead><tbody>${partyHistory.slice(0,30).map(h=>`<tr><td>${formatDate(h.date)}</td><td>${esc(h.type||'-')}</td><td>${esc(h.host)}</td><td>${esc(h.block||'-')} / ${esc(h.apt||'-')}</td><td>${h.totalGuests}</td><td>${h.entered}</td></tr>`).join('')}</tbody></table>`:'<div class="empty">Nenhuma festa concluída ainda.</div>';
+ const yearSel=document.getElementById('historyYearFilter');
+ if(yearSel&&!yearSel.dataset.filled){
+  let opts='<option value="">Todos</option>';
+  for(let y=2026;y<=2036;y++)opts+=`<option value="${y}">${y}</option>`;
+  yearSel.innerHTML=opts;
+  yearSel.dataset.filled='1';
+ }
+ const yearFilter=yearSel?yearSel.value:'';
+ const monthFilter=document.getElementById('historyMonthFilter')?document.getElementById('historyMonthFilter').value:'';
+ let list=partyHistory;
+ if(yearFilter)list=list.filter(h=>h.date&&h.date.slice(0,4)===yearFilter);
+ if(monthFilter)list=list.filter(h=>h.date&&h.date.slice(5,7)===monthFilter);
+ el.innerHTML=list.length?`<table class="table"><thead><tr><th>Data</th><th>Tipo</th><th>Morador</th><th>Bloco/Apto</th><th>Convidados</th><th>Entraram</th></tr></thead><tbody>${list.slice(0,100).map(h=>`<tr><td>${formatDate(h.date)}</td><td>${esc(h.type||'-')}</td><td>${esc(h.host)}</td><td>${esc(h.block||'-')} / ${esc(h.apt||'-')}</td><td>${h.totalGuests}</td><td>${h.entered}</td></tr>`).join('')}</tbody></table>`:'<div class="empty">Nenhuma festa encontrada para o filtro selecionado.</div>';
 }
 
 /* ---------- Resident access codes ---------- */
