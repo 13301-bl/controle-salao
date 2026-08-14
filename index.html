@@ -47,9 +47,19 @@ ul.rules{padding-left:20px;margin:8px 0}ul.rules li{margin-bottom:8px;line-heigh
 <div class="card-head"><h2 style="margin:0">👤 Cadastro de convidados</h2><span class="pill green" id="residentUnitBadge"></span></div>
 <div class="row">
 <div><label>Nome do responsável</label><input id="hostName" placeholder="Ex.: João Silva"></div>
-<div><label>Data da festa</label><input id="partyDate" type="date" min=""></div>
+<div><label>Tipo de festa</label><select id="partyType">
+<option value="">Selecione</option>
+<option value="Aniversário">Aniversário</option>
+<option value="Casamento">Casamento</option>
+<option value="Chá de bebê/revelação">Chá de bebê/revelação</option>
+<option value="Formatura">Formatura</option>
+<option value="Confraternização">Confraternização</option>
+<option value="Reunião de família">Reunião de família</option>
+<option value="Outro">Outro</option>
+</select></div>
 </div>
-<div class="row">
+<div class="row3">
+<div><label>Data da festa</label><input id="partyDate" type="date" min=""></div>
 <div><label>Horário início</label><input id="partyTimeStart" type="time" value="19:00" min="08:30" max="21:30"></div>
 <div><label>Horário fim</label><input id="partyTimeEnd" type="time" value="21:30" min="08:30" max="21:30"></div>
 </div>
@@ -185,7 +195,7 @@ function checkPartiesExpiry(){
  data.parties.forEach(p=>{
   const end=partyEndDate(p);
   if(end&&now>end){
-   partyHistory.unshift({host:p.host,block:p.block,apt:p.apt,date:p.date,time:p.time,totalGuests:p.guests.length,entered:p.guests.filter(g=>g.entered).length});
+   partyHistory.unshift({host:p.host,block:p.block,apt:p.apt,date:p.date,time:p.time,type:p.type,totalGuests:p.guests.length,entered:p.guests.filter(g=>g.entered).length});
    changed=true;
   }else remaining.push(p);
  });
@@ -222,7 +232,7 @@ function updateGuestCountLabel(){
 /* ---------- Save / Edit party ---------- */
 function saveParty(){
  if(!currentResidentAuth){alert('Sessão expirada. Acesse novamente com Bloco, Apto e senha.');go('home');return}
- const host=document.getElementById('hostName').value.trim(),date=document.getElementById('partyDate').value;
+ const host=document.getElementById('hostName').value.trim(),date=document.getElementById('partyDate').value,type=document.getElementById('partyType').value;
  const timeStart=document.getElementById('partyTimeStart').value,timeEnd=document.getElementById('partyTimeEnd').value;
  const rows=[...document.querySelectorAll('.guest-row')].map(r=>({name:r.querySelector('.guestName').value.trim(),phone:r.querySelector('.guestPhone').value.trim()})).filter(x=>x.name);
  if(!host||!date||!timeStart||!timeEnd||!rows.length){alert('Preencha responsável, data, horário início/fim e pelo menos um convidado.');return}
@@ -238,22 +248,23 @@ function saveParty(){
   const p=findPartyById(editingPartyId);
   if(!p){alert('Reserva não encontrada.');editingPartyId=null;return}
   const oldByName=new Map(p.guests.map(g=>[g.name.toLowerCase(),g]));
-  p.host=host;p.date=date;p.time=time;
-  p.guests=rows.map(r=>{const old=oldByName.get(r.name.toLowerCase());return old?{...old,name:r.name,phone:r.phone}:{id:uid()+uid(),name:r.name,phone:r.phone,code:uid(),entered:false,entryTime:null}});
+  p.host=host;p.date=date;p.time=time;p.type=type;
+  p.guests=rows.map(r=>{const old=oldByName.get(r.name.toLowerCase());return old?{...old,name:r.name,phone:r.phone}:{id:uid()+uid(),name:r.name,phone:r.phone,code:uid(),entered:false,entryTime:null,inviteSent:false,inviteSentAt:null}});
  }else{
-  data.parties.push({id:uid()+uid(),host,block:currentResidentAuth.block,apt:currentResidentAuth.apt,date,time,
-   guests:rows.map(r=>({id:uid()+uid(),name:r.name,phone:r.phone,code:uid(),entered:false,entryTime:null}))});
+  data.parties.push({id:uid()+uid(),host,block:currentResidentAuth.block,apt:currentResidentAuth.apt,date,time,type,
+   guests:rows.map(r=>({id:uid()+uid(),name:r.name,phone:r.phone,code:uid(),entered:false,entryTime:null,inviteSent:false,inviteSentAt:null}))});
  }
  save();
  editingPartyId=null;
  document.getElementById('cancelEditBtn').classList.add('hidden');
- document.getElementById('hostName').value='';document.getElementById('partyDate').value='';document.getElementById('partyTimeStart').value='19:00';document.getElementById('partyTimeEnd').value='21:30';
+ document.getElementById('hostName').value='';document.getElementById('partyType').value='';document.getElementById('partyDate').value='';document.getElementById('partyTimeStart').value='19:00';document.getElementById('partyTimeEnd').value='21:30';
  document.getElementById('guestInputs').innerHTML='';addGuestInput();
  alert('Lista salva com sucesso!');go('resident')
 }
 function editParty(id){
  const p=findPartyById(id);if(!p)return;
  document.getElementById('hostName').value=p.host;
+ document.getElementById('partyType').value=p.type||'';
  document.getElementById('partyDate').value=p.date;
  const times=[...(p.time||'').matchAll(/(\d{1,2}:\d{2})/g)].map(m=>m[1]);
  document.getElementById('partyTimeStart').value=times[0]||'19:00';
@@ -268,7 +279,7 @@ function editParty(id){
 function cancelEditParty(){
  editingPartyId=null;
  document.getElementById('cancelEditBtn').classList.add('hidden');
- document.getElementById('hostName').value='';document.getElementById('partyDate').value='';document.getElementById('partyTimeStart').value='19:00';document.getElementById('partyTimeEnd').value='21:30';
+ document.getElementById('hostName').value='';document.getElementById('partyType').value='';document.getElementById('partyDate').value='';document.getElementById('partyTimeStart').value='19:00';document.getElementById('partyTimeEnd').value='21:30';
  document.getElementById('guestInputs').innerHTML='';addGuestInput();
 }
 function deleteParty(id){
@@ -290,7 +301,7 @@ function renderResident(){
  el.innerHTML=mine.map(p=>{
   const exp=expandedParties.has(p.id);
   return `<div class="party-card">
-   <p><b>${formatDate(p.date)}</b> • ${esc(p.time)} • ${p.guests.length} convidado(s)</p>
+   <p><b>${formatDate(p.date)}</b> • ${esc(p.time)} • ${p.guests.length} convidado(s) ${p.type?`<span class="pill orange">${esc(p.type)}</span>`:''}</p>
    <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0">
     <button class="btn secondary" onclick="toggleResidentDetails('${p.id}')">${exp?'🔼 Recolher':'🔽 Expandir'}</button>
     <button class="btn secondary" onclick="editParty('${p.id}')">✏️ Editar</button>
@@ -298,7 +309,7 @@ function renderResident(){
    </div>
    <div class="${exp?'':'hidden'}">
     <p><b>${esc(p.host)}</b></p>
-    <table class="table"><thead><tr><th>Convidado</th><th>Telefone</th><th>Código</th><th>Status</th><th></th><th></th></tr></thead><tbody>${p.guests.map(g=>`<tr><td>${esc(g.name)}</td><td>${esc(g.phone||'-')}</td><td><b>${g.code}</b></td><td>${g.entered?'<span class="pill green">Entrou</span>':'<span class="pill orange">Aguardando</span>'}</td><td><button class="btn secondary" onclick="showInvite('${p.id}','${g.id}')">Convite</button></td><td><button class="btn danger" onclick="deleteGuest('${p.id}','${g.id}')">Excluir</button></td></tr>`).join('')}</tbody></table>
+    <table class="table"><thead><tr><th>Convidado</th><th>Telefone</th><th>Código</th><th>Entrada</th><th>Convite</th><th></th><th></th></tr></thead><tbody>${p.guests.map(g=>`<tr><td>${esc(g.name)}</td><td>${esc(g.phone||'-')}</td><td><b>${g.code}</b></td><td>${g.entered?'<span class="pill green">Entrou</span>':'<span class="pill orange">Aguardando</span>'}</td><td>${g.inviteSent?'<span class="pill green">📤 Enviado</span>':'<span class="pill red">Pendente</span>'}</td><td><button class="btn secondary" onclick="showInvite('${p.id}','${g.id}')">Convite</button></td><td><button class="btn danger" onclick="deleteGuest('${p.id}','${g.id}')">Excluir</button></td></tr>`).join('')}</tbody></table>
    </div>
   </div>`;
  }).join('');
@@ -353,15 +364,15 @@ function renderAdmin(){
  el.innerHTML=data.parties.sort((a,b)=>a.date<b.date?-1:1).map(p=>{
   const entered=p.guests.filter(g=>g.entered).length;
   return `<div class="party-card">
-   <p><b>${esc(p.host)}</b> • Bloco ${esc(p.block)} • Apto ${esc(p.apt)} • ${formatDate(p.date)} • ${esc(p.time)} • ${entered}/${p.guests.length} entraram</p>
-   <table class="table"><thead><tr><th>Convidado</th><th>Telefone</th><th>Código</th><th>Status</th><th>Horário</th><th></th></tr></thead><tbody>${p.guests.map(g=>`<tr><td>${esc(g.name)}</td><td>${esc(g.phone||'-')}</td><td>${g.code}</td><td>${g.entered?'<span class="pill green">Entrou</span>':'<span class="pill orange">Aguardando</span>'}</td><td>${g.entryTime||'-'}</td><td><button class="btn danger" onclick="deleteGuest('${p.id}','${g.id}')">Excluir</button></td></tr>`).join('')}</tbody></table>
+   <div class="card-head"><p style="margin:0"><b>${esc(p.host)}</b> • Bloco ${esc(p.block)} • Apto ${esc(p.apt)} • ${formatDate(p.date)} • ${esc(p.time)} • ${entered}/${p.guests.length} entraram ${p.type?`<span class="pill orange">${esc(p.type)}</span>`:''}</p><button class="btn danger" onclick="deleteParty('${p.id}')">🗑️ Excluir reserva</button></div>
+   <table class="table"><thead><tr><th>Convidado</th><th>Telefone</th><th>Código</th><th>Entrada</th><th>Convite</th><th>Horário</th><th></th></tr></thead><tbody>${p.guests.map(g=>`<tr><td>${esc(g.name)}</td><td>${esc(g.phone||'-')}</td><td>${g.code}</td><td>${g.entered?'<span class="pill green">Entrou</span>':'<span class="pill orange">Aguardando</span>'}</td><td>${g.inviteSent?'<span class="pill green">📤 Enviado</span>':'<span class="pill red">Pendente</span>'}</td><td>${g.entryTime||'-'}</td><td><button class="btn danger" onclick="deleteGuest('${p.id}','${g.id}')">Excluir</button></td></tr>`).join('')}</tbody></table>
   </div>`;
  }).join('');
 }
 function renderPartyHistory(){
  const el=document.getElementById('partyHistoryList');
  if(!el)return;
- el.innerHTML=partyHistory.length?`<table class="table"><thead><tr><th>Data</th><th>Morador</th><th>Bloco/Apto</th><th>Convidados</th><th>Entraram</th></tr></thead><tbody>${partyHistory.slice(0,30).map(h=>`<tr><td>${formatDate(h.date)}</td><td>${esc(h.host)}</td><td>${esc(h.block||'-')} / ${esc(h.apt||'-')}</td><td>${h.totalGuests}</td><td>${h.entered}</td></tr>`).join('')}</tbody></table>`:'<div class="empty">Nenhuma festa concluída ainda.</div>';
+ el.innerHTML=partyHistory.length?`<table class="table"><thead><tr><th>Data</th><th>Tipo</th><th>Morador</th><th>Bloco/Apto</th><th>Convidados</th><th>Entraram</th></tr></thead><tbody>${partyHistory.slice(0,30).map(h=>`<tr><td>${formatDate(h.date)}</td><td>${esc(h.type||'-')}</td><td>${esc(h.host)}</td><td>${esc(h.block||'-')} / ${esc(h.apt||'-')}</td><td>${h.totalGuests}</td><td>${h.entered}</td></tr>`).join('')}</tbody></table>`:'<div class="empty">Nenhuma festa concluída ainda.</div>';
 }
 
 /* ---------- Resident access codes ---------- */
@@ -398,29 +409,51 @@ function renderResidentCodes(){
 }
 
 /* ---------- Invite / QR ---------- */
+function markInviteSent(partyId,guestId){
+ const p=findPartyById(partyId);const g=p&&p.guests.find(x=>x.id===guestId);
+ if(!g)return;
+ g.inviteSent=true;g.inviteSentAt=new Date().toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
+ save();
+}
 function showInvite(partyId,guestId){
  const p=findPartyById(partyId);const g=p&&p.guests.find(x=>x.id===guestId);if(!g)return;
  let payload=encodeURIComponent(JSON.stringify({code:g.code,name:g.name,party:p.host,apt:p.apt}));
  let qrUrl=`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${payload}`;
  let waText=encodeURIComponent(`🎉 Convite - Festa de ${p.host}\nOlá ${g.name}, você está convidado(a)!\nBloco ${p.block} • Apto ${p.apt}\nData: ${formatDate(p.date)} • ${p.time}\nCódigo de acesso: ${g.code}\nQR Code: ${qrUrl}\nApresente este código ou o QR Code na portaria.`);
- document.getElementById('modalContent').innerHTML=`<h2 style="text-align:center">🎉 Convite</h2><p style="text-align:center"><b>${esc(g.name)}</b><br>Festa de ${esc(p.host)}<br>Bloco ${esc(p.block)} • Apto ${esc(p.apt)}<br>${g.phone?`Telefone: ${esc(g.phone)}`:''}</p><img class="qr" alt="QR Code" src="${qrUrl}"><p style="text-align:center">Código: <b style="font-size:22px">${g.code}</b></p><p class="muted" style="text-align:center">Apresente este QR Code ou informe o código na portaria.</p><a class="btn whatsapp" style="width:100%;justify-content:center;text-decoration:none;margin-top:10px" href="https://wa.me/?text=${waText}" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.09c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09.99-2.38.26-.29.57-.36.76-.36.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.17-.29.37-.42.5-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.63-.14.26.09 1.66.78 1.94.93.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg> Compartilhar convite no WhatsApp</a>`;
+ const sentLabel=g.inviteSent?`<p style="text-align:center" class="muted">📤 Convite marcado como enviado em ${esc(g.inviteSentAt)}</p>`:'';
+ document.getElementById('modalContent').innerHTML=`<h2 style="text-align:center">🎉 Convite</h2><p style="text-align:center"><b>${esc(g.name)}</b><br>Festa de ${esc(p.host)}<br>Bloco ${esc(p.block)} • Apto ${esc(p.apt)}<br>${g.phone?`Telefone: ${esc(g.phone)}`:''}</p><img class="qr" alt="QR Code" src="${qrUrl}"><p style="text-align:center">Código: <b style="font-size:22px">${g.code}</b></p><p class="muted" style="text-align:center">Apresente este QR Code ou informe o código na portaria.</p>${sentLabel}<a class="btn whatsapp" style="width:100%;justify-content:center;text-decoration:none;margin-top:10px" href="https://wa.me/?text=${waText}" target="_blank" rel="noopener" onclick="markInviteSent('${p.id}','${g.id}')"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.09c-.24.68-1.4 1.3-1.93 1.38-.49.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09.99-2.38.26-.29.57-.36.76-.36.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.17-.29.37-.42.5-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.19-.28.37-.23.63-.14.26.09 1.66.78 1.94.93.28.14.47.21.53.33.07.12.07.68-.17 1.36z"/></svg> Compartilhar convite no WhatsApp</a><button class="btn secondary" style="width:100%;margin-top:8px" onclick="markInviteSent('${p.id}','${g.id}');this.textContent='✓ Marcado como enviado'">✓ Marcar como enviado manualmente</button>`;
  document.getElementById('modal').classList.remove('hidden')
 }
 function closeModal(){stopQrScanner();document.getElementById('modal').classList.add('hidden')}
 function openQrScanner(){
- document.getElementById('modalContent').innerHTML=`<h2 style="text-align:center">📷 Escanear QR Code</h2><div id="qr-reader" style="width:100%"></div><p class="muted" style="text-align:center">Aponte a câmera para o QR Code do convidado.</p>`;
+ document.getElementById('modalContent').innerHTML=`<h2 style="text-align:center">📷 Escanear QR Code</h2><div id="qr-reader" style="width:100%"><p class="muted" style="text-align:center">Iniciando câmera...</p></div><p class="muted" style="text-align:center">Aponte a câmera para o QR Code do convidado.</p>`;
  document.getElementById('modal').classList.remove('hidden');
- setTimeout(()=>{
-  try{
-   window._qrScanner=new Html5Qrcode('qr-reader');
-   window._qrScanner.start(
-    {facingMode:'environment'},
-    {fps:10,qrbox:220},
-    (decodedText)=>{stopQrScanner();closeModal();handleQrResult(decodedText)},
-    ()=>{}
-   ).catch(err=>{document.getElementById('qr-reader').innerHTML=`<p class="error">Não foi possível acessar a câmera: ${esc(String(err&&err.message||err))}</p>`});
-  }catch(err){document.getElementById('qr-reader').innerHTML='<p class="error">Leitor de QR Code não pôde ser iniciado neste navegador.</p>'}
- },150);
+ setTimeout(startQrScanner,150);
+}
+async function startQrScanner(){
+ const box=document.getElementById('qr-reader');
+ if(!box)return;
+ if(typeof Html5Qrcode==='undefined'){box.innerHTML='<p class="error">Não foi possível carregar o leitor de QR Code (sem conexão com a internet). Digite o código manualmente.</p>';return}
+ if(!(window.isSecureContext||location.protocol==='https:')){box.innerHTML='<p class="error">A câmera só funciona em sites com HTTPS (o link do GitHub Pages já é seguro — abra por ele, não por um arquivo local).</p>';return}
+ try{
+  const cameras=await Html5Qrcode.getCameras();
+  if(!cameras||!cameras.length){box.innerHTML='<p class="error">Nenhuma câmera encontrada neste dispositivo.</p>';return}
+  const back=cameras.find(c=>/back|tras|rear|environment/i.test(c.label))||cameras[cameras.length-1];
+  box.innerHTML='';
+  window._qrScanner=new Html5Qrcode('qr-reader');
+  await window._qrScanner.start(
+   back.id,
+   {fps:10,qrbox:220},
+   (decodedText)=>{stopQrScanner();closeModal();handleQrResult(decodedText)},
+   ()=>{}
+  );
+ }catch(err){
+  const msg=String(err&&err.message||err);
+  let friendly='Não foi possível acessar a câmera.';
+  if(/permission|denied|NotAllowed/i.test(msg))friendly='Permissão de câmera negada. Verifique as permissões do navegador para este site e tente novamente.';
+  else if(/NotFound/i.test(msg))friendly='Nenhuma câmera encontrada neste dispositivo.';
+  box.innerHTML=`<p class="error">${esc(friendly)}</p><p class="muted" style="font-size:12px">${esc(msg)}</p>`;
+ }
 }
 function stopQrScanner(){
  if(window._qrScanner){
