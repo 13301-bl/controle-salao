@@ -44,7 +44,7 @@ ul.rules{padding-left:20px;margin:8px 0}ul.rules li{margin-bottom:8px;line-heigh
 
 <section id="resident" class="view hidden">
 <div class="card">
-<div class="card-head"><h2 style="margin:0">👤 Cadastro de convidados</h2><span class="pill green" id="residentUnitBadge"></span></div>
+<div class="card-head"><h2 style="margin:0">👤 Cadastro de convidados</h2><div style="display:flex;align-items:center;gap:8px"><span class="pill green" id="residentUnitBadge"></span><button class="btn secondary" onclick="logout('resident')">🚪 Sair</button></div></div>
 <div class="row">
 <div><label>Nome do responsável</label><input id="hostName" placeholder="Ex.: João Silva"></div>
 <div><label>Tipo de festa</label><select id="partyType">
@@ -93,7 +93,7 @@ ul.rules{padding-left:20px;margin:8px 0}ul.rules li{margin-bottom:8px;line-heigh
 
 <section id="gate" class="view hidden"><div class="notice">Área protegida por senha.</div>
 <div class="card">
-<h2>🛡️ Portaria</h2>
+<div class="card-head"><h2 style="margin:0">🛡️ Portaria</h2><button class="btn secondary" onclick="logout('gate')">🚪 Sair</button></div>
 <p class="muted">Digite o código do convite ou o nome do convidado.</p>
 <div class="row">
 <div><label>Código</label><input id="gateCode" placeholder="Ex.: A8F42K" onkeydown="if(event.key==='Enter')validateGate()"></div>
@@ -106,7 +106,7 @@ ul.rules{padding-left:20px;margin:8px 0}ul.rules li{margin-bottom:8px;line-heigh
 </section>
 
 <section id="admin" class="view hidden"><div class="notice">Área protegida por senha.</div>
-<div class="card"><div class="card-head"><h2 style="margin:0">⚙️ Administração</h2><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn secondary" onclick="window.print()">🖨️ Exportar em PDF</button><button class="btn secondary" onclick="openPasswordChange()" title="Trocar senhas">⚙️ Trocar senha</button></div></div><div id="adminOverview"></div></div>
+<div class="card"><div class="card-head"><h2 style="margin:0">⚙️ Administração</h2><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn secondary" onclick="window.print()">🖨️ Exportar em PDF</button><button class="btn secondary" onclick="openPasswordChange()" title="Trocar senhas">⚙️ Trocar senha</button><button class="btn secondary" onclick="logout('admin')">🚪 Sair</button></div></div><div id="adminOverview"></div></div>
 
 <div class="card" style="margin-top:16px" id="residentCodesCard">
 <div class="card-head"><h3 style="margin:0">🔑 Senhas de acesso dos moradores</h3><button class="btn secondary" onclick="printOnly('#residentCodesCard')">🖨️ Exportar PDF</button></div>
@@ -142,7 +142,7 @@ ul.rules{padding-left:20px;margin:8px 0}ul.rules li{margin-bottom:8px;line-heigh
 <div class="footer">Protótipo local • Controle de acesso do salão de festas</div>
 </div>
 
-<div id="lockModal" class="modal hidden"><div class="modal-box lock"><div class="icon">🔐</div><h2 id="lockTitle">Área protegida</h2><p class="muted" id="lockSubtitle">Digite a senha para continuar.</p><div id="lockResidentFields" class="hidden" style="text-align:left"><label>Bloco</label><select id="lockBlock"></select><label>Apartamento</label><select id="lockApt"></select><label>Senha de acesso</label></div><input id="lockPassword" type="password" placeholder="Senha" onkeydown="if(event.key==='Enter')unlock()"><div id="lockError" class="error"></div><button class="btn primary" style="margin-top:12px;width:100%" onclick="unlock()">Entrar</button><button class="btn secondary" style="margin-top:8px;width:100%" onclick="closeLock()">Cancelar</button></div></div>
+<div id="lockModal" class="modal hidden"><div class="modal-box lock"><div class="icon">🔐</div><h2 id="lockTitle">Área protegida</h2><p class="muted" id="lockSubtitle">Digite a senha para continuar.</p><div id="lockResidentFields" class="hidden" style="text-align:left"><label>Bloco</label><select id="lockBlock"></select><label>Apartamento</label><select id="lockApt"></select><label>Senha de acesso</label></div><input id="lockPassword" type="password" placeholder="Senha" onkeydown="if(event.key==='Enter')unlock()"><label style="display:flex;align-items:center;gap:8px;font-weight:400;margin-top:12px;text-align:left"><input type="checkbox" id="lockRemember" style="width:auto" checked> Manter conectado neste celular</label><div id="lockError" class="error"></div><button class="btn primary" style="margin-top:12px;width:100%" onclick="unlock()">Entrar</button><button class="btn secondary" style="margin-top:8px;width:100%" onclick="closeLock()">Cancelar</button></div></div>
 <div id="modal" class="modal hidden"><div class="modal-box"><div id="modalContent"></div><div style="text-align:right;margin-top:15px"><button class="btn secondary" onclick="closeModal()">Fechar</button></div></div></div>
 
 <script>
@@ -495,10 +495,21 @@ function handleQrResult(text){
 }
 
 /* ---------- Access control (lock modal) ---------- */
+const SESSION_KEY='condominio_salao_sessions_v1';
+let sessions=JSON.parse(localStorage.getItem(SESSION_KEY)||'null')||{gate:false,admin:false,resident:null};
+function saveSessions(){localStorage.setItem(SESSION_KEY,JSON.stringify(sessions))}
+
 function openProtected(target){
+ if(target==='resident'&&sessions.resident){
+  const rec=residentCodes[codeKey(sessions.resident.block,sessions.resident.apt)];
+  if(rec){currentResidentAuth=sessions.resident;editingPartyId=null;go('resident');return}
+  sessions.resident=null;saveSessions();
+ }
+ if((target==='gate'||target==='admin')&&sessions[target]){go(target);return}
  protectedTarget=target;
  document.getElementById('lockPassword').value='';
  document.getElementById('lockError').textContent='';
+ document.getElementById('lockRemember').checked=true;
  const residentFields=document.getElementById('lockResidentFields');
  if(target==='resident'){
   document.getElementById('lockTitle').textContent='🔐 Acesso do Morador';
@@ -517,6 +528,7 @@ function openProtected(target){
 function unlock(){
  const err=document.getElementById('lockError');
  const pass=document.getElementById('lockPassword').value.trim();
+ const remember=document.getElementById('lockRemember').checked;
  if(protectedTarget==='resident'){
   const block=document.getElementById('lockBlock').value,apt=document.getElementById('lockApt').value;
   if(!block||!apt){err.textContent='Selecione bloco e apartamento.';return}
@@ -524,13 +536,24 @@ function unlock(){
   if(!rec||pass!==rec.code){err.textContent='Bloco, apartamento ou senha incorretos.';return}
   currentResidentAuth={block,apt};
   editingPartyId=null;
+  if(remember){sessions.resident={block,apt};saveSessions()}
   closeLock();go('resident');
  }else{
-  if(pass===passwords[protectedTarget]){const target=protectedTarget;closeLock();go(target)}
-  else err.textContent='Senha incorreta.';
+  if(pass===passwords[protectedTarget]){
+   const target=protectedTarget;
+   if(remember){sessions[target]=true;saveSessions()}
+   closeLock();go(target)
+  }else err.textContent='Senha incorreta.';
  }
 }
 function closeLock(){document.getElementById('lockModal').classList.add('hidden');protectedTarget=null}
+function logout(target){
+ if(!confirm('Deseja sair desta área neste celular?'))return;
+ if(target==='resident'){sessions.resident=null;currentResidentAuth=null}
+ else sessions[target]=false;
+ saveSessions();
+ go('home');
+}
 
 function openPasswordChange(){
  document.getElementById('modalContent').innerHTML=`
